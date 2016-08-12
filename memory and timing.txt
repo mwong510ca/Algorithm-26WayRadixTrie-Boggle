@@ -1,0 +1,91 @@
+******************************************************************************
+*          MEMORY
+******************************************************************************
+
+Computing memory of BoggleSolver
+*-----------------------------------------------------------
+Running 3 total tests.
+
+Test 1: memory with dictionary-algs4.txt (must be <= 2x reference solution).
+  - memory of dictionary[]           = 494472 bytes
+  - memory of student   BoggleSolver = 907984 bytes
+  - memory of reference BoggleSolver = 5135408 bytes
+  - student / reference              = 0.18
+==> passed
+
+Test 2: memory with dictionary-shakespeare.txt (must be <= 2x reference solution).
+  - memory of dictionary[]           = 1925392 bytes
+  - memory of student   BoggleSolver = 3361808 bytes
+  - memory of reference BoggleSolver = 17454168 bytes
+  - student / reference              = 0.19
+==> passed
+
+Test 3: memory with dictionary-yawl.txt (must be <= 2x reference solution).
+  - memory of dictionary[]           = 22596832 bytes
+  - memory of student   BoggleSolver = 41151512 bytes
+  - memory of reference BoggleSolver = 179310080 bytes
+  - student / reference              = 0.23
+==> passed
+
+
+Total: 3/3 tests passed!
+
+================================================================
+
+
+
+******************************************************************************
+*          TIMING
+******************************************************************************
+
+Timing BoggleSolver
+*-----------------------------------------------------------
+All timing tests are for random 4-by-4 boards (using the Hasbro dice).
+The dictionary is specified with each test.
+
+Running 9 total tests.
+
+Test 1: timing constructor (must be <= 5x reference solution).
+ *  dictionary-algs4.txt
+      - student   solution time (in seconds): 0.02
+      - reference solution time (in seconds): 0.01
+      - ratio:                                2.43
+
+==> passed
+
+ *  dictionary-enable2k.txt
+      - student   solution time (in seconds): 0.11
+      - reference solution time (in seconds): 0.03
+      - ratio:                                4.44
+
+==> passed
+
+ *  dictionary-yawl.txt
+      - student   solution time (in seconds): 0.19
+      - reference solution time (in seconds): 0.06
+      - ratio:                                2.99
+
+==> passed
+
+ *  dictionary-zingarelli2005.txt
+      - student   solution time (in seconds): 0.30
+      - reference solution time (in seconds): 0.06
+      - ratio:                                4.81
+
+==> passed
+
+Test 2: timing getAllValidWords() for 5.0 seconds using dictionary-yawl.txt
+        (must be <= 2x reference solution)
+      - reference solution calls per second: 9688.37
+      - student   solution calls per second: 20418.32
+      - reference / student ratio:           0.47
+
+=> passed    student <= 10000x reference
+=> passed    student <=    25x reference
+=> passed    student <=    10x reference
+=> passed    student <=     5x reference
+=> passed    student <=     2x reference
+=> BONUS     student <=   0.5x reference
+
+
+Total: 10/9 tests passed!
