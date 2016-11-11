@@ -1,5 +1,17 @@
 package mwong.myprojects.boggle;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.TreeSet;
+
 /****************************************************************************
  *  @author   Meisze Wong
  *            www.linkedin.com/pub/macy-wong/46/550/37b/
@@ -13,8 +25,13 @@ package mwong.myprojects.boggle;
  ****************************************************************************/
 
 public class BoggleDictionary {
-    private static final int OFFSET = BoggleTrie26WayRadix.getOffset();
+	private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final int OFFSET = BoggleTrie26WayRadix.getOffset();
     private static final int IDX_Q = BoggleTrie26WayRadix.getIdxQ();
+    private static final String SEPARATOR = System.getProperty("file.separator");
+    private static String directory = "dictionary";
+    
+    private String filepath;
     private byte[] radix, radixLength;
     private int[] radixIdx, trieR26;
     private String[] words;
@@ -28,15 +45,196 @@ public class BoggleDictionary {
     public BoggleDictionary() { 
         empty = true;
         marker = -1;
+        filepath = "";
+        String[] dict = (new BoggleDictionaryDefault()).getWord();
+        loadDictionary(dict);
     }
+    
+    public BoggleDictionary(DictionaryOptions option) {
+    	empty = true;
+        marker = -1;
+        filepath = directory + SEPARATOR + option.getFilename();
+        String[] dict = readDictionary(filepath);
+        loadDictionary(dict);
+    }
+    
+    public BoggleDictionary(String filepath) {
+    	empty = true;
+        marker = -1;
+        this.filepath = filepath;
+        String[] dict = readDictionary(filepath);
+        loadDictionary(dict);
+    }
+    
+    void loadDataFile(String filename) throws FileNotFoundException, IOException {
+    	String seperator = System.getProperty("file.separator");
+        String directory = "database";
+        String filepath = directory + seperator + filename;
+        
+        try (FileInputStream fin = new FileInputStream(filepath);
+                FileChannel inChannel = fin.getChannel();) {
+            ByteBuffer buf = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
+            hasWordGroup1 = buf.getInt();
+            endTrie = buf.getInt();  
+            hasWordGroup2 = buf.getInt();  
+            hasRadix = buf.getInt();  
+            endRadix = buf.getInt();  
 
+            int len = buf.getInt();
+            radix = new byte[len];
+            buf.get(radix);
+            len = buf.getInt();
+            radixLength = new byte[len];
+            buf.get(radixLength);
+            
+            len = buf.getInt();
+            radixIdx = new int[len];
+            for (int idx = 0; idx < len;idx++) {
+            	radixIdx[idx] = buf.getInt();
+            }
+            len = buf.getInt();
+            trieR26 = new int[len];
+            for (int idx = 0; idx < len;idx++) {
+            	trieR26[idx] = buf.getInt();
+            }
+            
+            len = buf.getInt();
+            visited = new int[len];
+            words = new String[len];
+            for (int idx = 0; idx < len;idx++) {
+            	byte size = buf.get();
+            	if (size > 0) {
+            		byte[] bytes = new byte[size];
+            		buf.get(bytes);
+                    words[idx] = new String(bytes);
+                }
+            }
+            empty = false;
+        }
+    }
+    
+    void saveDataFile(String filename) {
+    	if (empty) {
+    		System.out.println("empty????");
+    		return;
+    	}
+    	
+    	String seperator = System.getProperty("file.separator");
+        String directory = "database";
+        String filepath = directory + seperator + filename;
+        if (!(new File(directory)).exists()) {
+            (new File(directory)).mkdir();
+        }
+        if (!(new File(filepath)).exists()) {
+            (new File(filepath)).delete();
+        }
+        
+        try (FileOutputStream fout = new FileOutputStream(filepath);
+                FileChannel outChannel = fout.getChannel();) {
+        	ByteBuffer buffer = ByteBuffer.allocateDirect(20);
+            buffer.putInt(hasWordGroup1);
+            buffer.putInt(endTrie);
+            buffer.putInt(hasWordGroup2);
+            buffer.putInt(hasRadix);
+            buffer.putInt(endRadix);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            buffer = ByteBuffer.allocateDirect(radix.length + 4);
+            buffer.putInt(radix.length);
+            buffer.put(radix);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            buffer = ByteBuffer.allocateDirect(radixLength.length + 4);
+            buffer.putInt(radixLength.length);
+            buffer.put(radixLength);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            buffer = ByteBuffer.allocateDirect(radixIdx.length * 4 + 4);
+            buffer.putInt(radixIdx.length);
+            for (int idx : radixIdx)
+            	buffer.putInt(idx);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            buffer = ByteBuffer.allocateDirect(trieR26.length * 4 + 4);
+            buffer.putInt(trieR26.length);
+            for (int idx : trieR26)
+            	buffer.putInt(idx);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            buffer = ByteBuffer.allocateDirect(4);
+            buffer.putInt(words.length);
+            buffer.flip();
+            outChannel.write(buffer);
+            
+            for (String str : words) {
+            	if (str == null) {
+            		buffer = ByteBuffer.allocateDirect(1);
+            		buffer.put((byte) 0);
+            	} else {
+            		buffer = ByteBuffer.allocateDirect(str.length() + 1);
+            		buffer.put((byte) str.length());
+            		buffer.put(str.getBytes());
+            	}
+            	buffer.flip();
+                outChannel.write(buffer);
+            }
+        } catch (BufferUnderflowException | IOException ex) {
+            System.out.println("PatternDatabase - save data set in file failed");
+            if ((new File(filepath)).exists()) {
+                (new File(filepath)).delete();
+            }
+        }
+    }
+    
+    private String[] readDictionary(String filepath) {
+    	File file = new File(filepath);
+    	if (!file.exists()) {
+    		System.out.println(filepath + " not found."); 
+			return null;
+    	}
+    	
+    	TreeSet<String> lines = new TreeSet<String>();
+    	try(BufferedReader buf = new BufferedReader(new FileReader(filepath))) {
+    	    String line = buf.readLine();
+    	    while (line != null) {
+    	    	line = line.trim().toUpperCase();
+    	    	if (line.length() > 2) {
+    	    		boolean skip = false;
+    	    		for (int idx = 0; idx < line.length(); idx++) {
+    	    			if (alphabet.indexOf(line.charAt(idx)) == -1) {
+    	    				skip = true;
+    	    				break;
+    	    			}
+    	    		}
+    	    		if (!skip) {
+    	    			lines.add(line);
+    	    		}
+    	    	}
+        	    line = buf.readLine();
+        	}
+        } catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+        String[] dict = new String[lines.size()];
+        int idx = 0;
+    	for (String str : lines)
+    		dict[idx++] = str;
+    	return dict;
+    }
+    
     /**
      *  Load the dictionary in trie object, retrieve trie components
      *  and reorder it and set a flag of each group of words.  
      *  
      *  @param dict string array of the dictionary
      */
-    protected void loadDictionary(String[] dict) {
+    private void loadDictionary(String[] dict) {
         // load all words in trie the retrieve it's components
         BoggleTrie26WayRadix trie = new BoggleTrie26WayRadix(dict.length);
         for (String key : dict) {
@@ -174,7 +372,11 @@ public class BoggleDictionary {
         }
     }      
 
-    /**
+    protected final String getFilepath() {
+		return filepath;
+	}
+
+	/**
      *  Returns the number of the index of character 'Q'.
      *  
      *  @return number of the index of character 'Q'
@@ -270,6 +472,16 @@ public class BoggleDictionary {
    
     protected void updateMarker() {
     	marker += 2;
+    }
+    
+    TreeSet<String> getAllWords(int minLength) {
+    	TreeSet<String> set = new TreeSet<String>();
+    	for (String str : words) {
+    		if (str != null && str.length() >= minLength) {
+    			set.add(str);
+    		}
+    	}
+    	return set;
     }
     
     /**
