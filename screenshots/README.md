@@ -1,11 +1,16 @@
-![Start up screen]
-(https://github.com/mwong510ca/BoggleGame/screenshots/gui1.png)
+Start up screen:  
+![]
+(gui1.png)  
+  
+Super big boggle sample:
+![]
+(gui2.png)  
+  
+Change boggle size:
+![]
+(menu1.png)
 
-![6x6 demo]
-(https://github.com/mwong510ca/BoggleGame/screenshots/gui2.png)
-
-![Change boggle size]
-(https://github.com/mwong510ca/BoggleGame/screenshots/menu1.png)
-
-![Change dictionary]
-(https://github.com/mwong510ca/BoggleGame/screenshots/menu2.png)
+Change dictionary:  
+![]
+(menu2.png)  
+  
