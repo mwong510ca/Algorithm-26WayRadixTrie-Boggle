@@ -1,17 +1,32 @@
-###Preface
-Besides the [lecture] of the R-way tire and ternary search tries (TST).  I found [Radix (PATRICIA) trie] on the internet, it reduce the depth of TST, but not beat the search performance of R-way trie.  
-<pre>
-                  Search hit      Search miss          Insert        Space
-    R-way trie    L               log (base R) N       L             (R + 1) * N
-    TST           L + ln N        ln (base 3) N        L + ln N      4 * N
-    Radix trie    L + ln N        ln (base 3) N        L + ln N      4 * N
-    R - R size of 256 for ASCII code, 26 for Boggle (A-Z).
-    L - length of word. 
-    N - size of words added to trie. 
-</pre>
+### Boggle Game
+![Boggle Game - start up screen]
+(screenshots/gui1.png)  
 
-### 26WayRadixTrie - concept
-I take the advantage of R-way trie on performance and Radix trie on memory usage.  First 2 letter always stored as 26wayTrie.  Remaining string stored as combined into new R-way Radix trie as below:  
+My Boggle game support 4x4, 5x5 and 6x6 boards with double letters (An, Er, He, In, Qu and Th) and a blank dice.  It will generate the random board or custom setup by the player.  
+
+There are 3 dictionaries can be choose from: 
+* [OSPD] - Official Scrabble Player Dictionary (US)  
+* [EOWL] - English Open Word List (UK)  
+* [SOWPODS] - English-language tournament Scrabble 
+Player may use their choice of dictionary file in txt format.
+
+### GUI design
+
+The GUI is writtern in pyqt5.  It starts with a 4x4 Boggle board with OSPD US dictionary.  Player may change the Boggle size and dictionary from the menu bar.
+
+Simply click the button to start a new game.  It will count down 3 mins for 4x4 and 5x5 board, and 4 mins for 6x6 board; and display the possible maximum scores.  The game will terminate either run out of time or the player found all words.
+
+Player has two ways to submit the words:  
+  1. Type the word on the left side. Notes: Copy and paste is not allowed.  
+  2. Click the frist letter, highlight the word, and click the last letter.  
+
+If the player change the dictionary while the game is running.  It will reset and restart the current game.  The possible maximum scores may changed based on the new dictionary.
+
+### Dictionary support - 26 Way Radix Trie
+
+The dictionary is stored in trie structure written in java.  I take the advantage of [R-way trie] on performance by Princeton University and [Radix (PATRICIA) trie] on memory usage from the internet and called it "26 Way Radix Trie". 
+* First 2 letter always stored as 26-way Trie.  
+* Remaining string stored as combined into new R-way Radix trie as below:  
 <pre>
     ...
     ABSENCE
@@ -40,20 +55,13 @@ I take the advantage of R-way trie on performance and Radix trie on memory usage
                                    (ABSOLUTELY)
 </pre>
 
-###Redo the Boggle programming assignment
-With my new 26-way radix trie on, it has slightly better performance and use less memory.
-
-* BoggleBoardPlus.java -- A data type for Boggle.  
-Load the BoggleBoard, keep a set of face character in ASCII code for radix search, a set trie node index (0 - 25) for trie search, and a set of it's neighbor dices' positions.'
-
-* BoggleSolver.java:  Boggle solver that finds all valid words in a given Boggle board, using a given dictionary.  
-Load the dictionary, analysis the boggle board, then walk through the board with depth first search.  If there is a word in dictionary, store the word in the words set.  Revisited word will not add the words set.
-
-* TrieInterface - The interface of universal trie structure and standard functions.
+* TrieInterface.java - The interface of universal trie structure and standard functions.
 
 * [BoggleTrie26WayRadix.java] -- A data type of trie combine the concept of R-way trie and Radix Trie, stores in 2 dimension array.
 
 * [BoggleDictionary.java] -- A data type to load dictionary for Boggle.  A customize version of trie designed for Boggle that dictionary is a final set.  Unlike standard trie structure, once the (dictionary) tire object created, changes (put or delete feature) is not allowed.  It load all words in trie, then reorder it is specific order as describe below and packed it in 1 dimension array.  It reduced over 50% the memory usage and the performance improvement above the same or slightly better.  
+
+* BoggleSolver.java -- Modify my original version from programming assignment to support double letters and blank dice.
 
 <pre>
                 Has next trie   is a word   has radix       flags / indicators
@@ -93,7 +101,12 @@ Load the dictionary, analysis the boggle board, then walk through the board with
     reference / student ratio:           0.47               0.47
     
 </pre>
-[lecture]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
+
+[R-way trie]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
 [Radix (PATRICIA) trie]: https://en.wikipedia.org/wiki/Radix_tree
 [BoggleTrie26WayRadix.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleTrie26WayRadix.java%20-%20Details.md
 [BoggleDictionary.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleDictionary.java%20-%20Details.md
+[OSPD]: http://www.puzzlers.org/pub/wordlists/ospd.txt
+[EOWL]: http://dreamsteep.com/projects/the-english-open-word-list.html
+[SOWPODS]: https://www.wordgamedictionary.com/sowpods/
+[System requirements and installation]: https://github.com/mwong510ca/BoggleGame/tree/master/gui(pyqt5)
