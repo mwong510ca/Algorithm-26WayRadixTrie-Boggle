@@ -1,4 +1,5 @@
 ### Boggle Game
+[Screenshots] / [Youtube demo]
 ![Boggle Game - start up screen]
 (screenshots/gui1.png)  
 
@@ -9,6 +10,8 @@ There are 3 dictionaries can be choose from:
 * [EOWL] - English Open Word List (UK)  
 * [SOWPODS] - English-language tournament Scrabble 
 Player may use their choice of dictionary file in txt format.
+
+[System requirements and installation]  
 
 ### GUI design
 
@@ -101,7 +104,8 @@ The dictionary is stored in trie structure written in java.  I take the advantag
     reference / student ratio:           0.47               0.47
     
 </pre>
-
+[Screenshots]: https://github.com/mwong510ca/BoggleGame/blob/master/screenshots/README.md
+[Youtube demo]:
 [R-way trie]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
 [Radix (PATRICIA) trie]: https://en.wikipedia.org/wiki/Radix_tree
 [BoggleTrie26WayRadix.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleTrie26WayRadix.java%20-%20Details.md
