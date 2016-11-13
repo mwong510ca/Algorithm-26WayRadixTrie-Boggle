@@ -15,7 +15,7 @@ Player may use their choice of dictionary file in txt format.
 
 ### GUI design
 
-The GUI is writtern in pyqt5.  It starts with a 4x4 Boggle board with OSPD US dictionary.  Player may change the Boggle size and dictionary from the menu bar.
+The GUI is writtern in pyqt5, using [py4j] connected to dictionary support in java.  It starts with a 4x4 Boggle board with OSPD US dictionary.  Player may change the Boggle size and dictionary from the menu bar.
 
 Simply click the button to start a new game.  It will count down 3 mins for 4x4 and 5x5 board, and 4 mins for 6x6 board; and display the possible maximum scores.  The game will terminate either run out of time or the player found all words.
 
@@ -64,7 +64,7 @@ The dictionary is stored in trie structure written in java.  I take the advantag
 
 * [BoggleDictionary.java] -- A data type to load dictionary for Boggle.  A customize version of trie designed for Boggle that dictionary is a final set.  Unlike standard trie structure, once the (dictionary) tire object created, changes (put or delete feature) is not allowed.  It load all words in trie, then reorder it is specific order as describe below and packed it in 1 dimension array.  It reduced over 50% the memory usage and the performance improvement above the same or slightly better.  
 
-* BoggleSolver.java -- Modify my original version from programming assignment to support double letters and blank dice.
+* BoggleSolver.java -- Use depth first search to find all words from the boggle board.  Modify my original version from programming assignment to support double letters and blank dice.
 
 <pre>
                 Has next trie   is a word   has radix       flags / indicators
@@ -105,7 +105,7 @@ The dictionary is stored in trie structure written in java.  I take the advantag
     
 </pre>
 [Screenshots]: https://github.com/mwong510ca/BoggleGame/blob/master/screenshots/README.md
-[Youtube demo]:
+[Youtube demo]: https://youtu.be/KAHKMHzHqos
 [R-way trie]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
 [Radix (PATRICIA) trie]: https://en.wikipedia.org/wiki/Radix_tree
 [BoggleTrie26WayRadix.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleTrie26WayRadix.java%20-%20Details.md
@@ -114,3 +114,4 @@ The dictionary is stored in trie structure written in java.  I take the advantag
 [EOWL]: http://dreamsteep.com/projects/the-english-open-word-list.html
 [SOWPODS]: https://www.wordgamedictionary.com/sowpods/
 [System requirements and installation]: https://github.com/mwong510ca/BoggleGame/tree/master/gui(pyqt5)
+[py4j]: https://www.py4j.org
