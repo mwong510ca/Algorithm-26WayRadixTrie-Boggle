@@ -244,7 +244,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Custom Boggle Board Setup"))
         self.sizeLabel.setText(_translate("Form", "Choose boggle size: "))
         self.size4Button.setText(_translate("Form", "4 x 4"))
         self.size5Button.setText(_translate("Form", "5 x 5"))
