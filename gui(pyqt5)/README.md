@@ -1,4 +1,4 @@
-### Fifteen Puzzle 2 in 1 - Game and Solver
+### Boggle Game
 
 ### How to Install
 Requirement :  
@@ -6,22 +6,16 @@ Requirement :
 * Python 3.5
 * PIL or Pillow for Python 3.5
 * PyQt 5.6 or 5.7 (may not work on older versions)
-* download and replace the database folder (optional)  
 
-Click appGameSolver_15puzzle.py to start the application.
+Start from Terminal: python3 appGameSolver_15puzzle.py
 
-### How to Play
-Meun bar - Settings  
-Puzzle - You may display the puzzle in numbers, default image (panda babies), or use your own photo.  
-Solver - You may change the timeout limit from 5 tp 60 seconds.  And auto move speed from 0.1 to 2.5 seconds.  
+### How to Play  
+Click the "New Boggle game" button to start the game.  
+Type the word or Click the first and last letter on the boggle board.  Notes: copy and paste is not allowed.  
+Game will terminate when run out of time or player found all words.
 
-Puzzle Section - Shuffle the puzzle  
-You may sway a pair of tiles each time to shuffle the puzzle.  Or generate a random puzzle by itself.  An option of 3 difficulty level to choose from.  
+### Settings
+Change the choice of boggle board from the menu bar, or create a custom boggle board.  
+Change the choice of dictionary from the menu bar, or use a local dictionary file in text format.  Change the dictionary during the game is running, it will restart the game with the choice of dictionary.
 
-Game Section - Play the game  
-Simple click on the puzzle to move the tile.  Timer start counting from the first move.  
-A option to backward one move at a time, or reset to original setting.  
 
-Solver Section - Search for optimal solution and apply the solution  
-Choose your choice of solver version and heuristic function, then click "Find optimal solution."  
-It will timeout after the preset limit excpet pattern database 7-8.  If a solution found before timeout, it will display a list of moves and apply the solution automatically.  
