@@ -11,6 +11,10 @@ Change boggle size:
 ![]
 (menu1.png)
 
+Custom boggle board:  
+![]
+(custom1.png)  
+  
 Change dictionary:  
 ![]
 (menu2.png)  
