@@ -12,7 +12,7 @@ Requirement :
   (OS X) From terminal: pip3 install PIL
 * [Qt] 5.6 or 5.7 (may not work on older versions)
 
-Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components such as py4j.jar, images, dictionary text files, ...)  
+Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components - jar files, images, dictionary text files, etc)  
 Start from Terminal: python3 appGameSolver_15puzzle.py
 
 ### How to Play  
