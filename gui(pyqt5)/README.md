@@ -12,7 +12,7 @@ Requirement :
   (OS X) From terminal: pip3 install PIL
 * [Qt] 5.6 or 5.7 (may not work on older versions)
 
-Download and unzip the BoggleGame.zip file  
+Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components such as py4j.jar, images, dictionary text files, ...)  
 Start from Terminal: python3 appGameSolver_15puzzle.py
 
 ### How to Play  
@@ -29,4 +29,4 @@ Change the choice of dictionary from the menu bar, or use a local dictionary fil
 [py4j]: https://www.py4j.org/install.html
 [PIL]: https://wp.stolaf.edu/it/installing-pil-pillow-cimage-on-windows-and-mac/
 [Qt]: https://www.qt.io
-
+[BoggleGame.zip]: https://my.pcloud.com/publink/show?code=XZ9LTgZH643OK455rhGMGS5X42mv8HPAD1X
