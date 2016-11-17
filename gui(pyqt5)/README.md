@@ -13,7 +13,7 @@ Requirement :
 * [Qt] 5.6 or 5.7 (may not work on older versions)
 
 Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components - jar files, images, dictionary text files, etc)  
-Start from Terminal: python3 appGameSolver_15puzzle.py
+Start from Terminal: python3 appBoggle.py
 
 ### How to Play  
 Click the "New Boggle game" button to start the game.  
