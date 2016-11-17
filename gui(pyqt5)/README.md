@@ -12,6 +12,7 @@ Requirement :
   (OS X) From terminal: pip3 install PIL
 * [Qt] 5.6 or 5.7 (may not work on older versions)
 
+Download and unzip the BoggleGame.zip file  
 Start from Terminal: python3 appGameSolver_15puzzle.py
 
 ### How to Play  
