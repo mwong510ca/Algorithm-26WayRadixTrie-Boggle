@@ -1,1001 +1,132 @@
 package mwong.myprojects.boggle;
 
-/****************************************************************************
- *  @author   Meisze Wong
- *            www.linkedin.com/pub/macy-wong/46/550/37b/
+/**
+ * BoggleDictionaryDefault is the data type stores a backup Boggle dictionary.  A preset
+ * list of 971 words will be use if Boggle dictionary is unavailable or empty.
  *
- *  Compilation: javac BoggleDictionary.java
- *  Dependences: BoggleTrie26WayRadix.java
+ * <p>Dependencies : BoggleOptions.java
  *
- *  A data type to load the dictionary into 26-way radix trie, reorder in specific
- *  order design for Boggle to improve performance
- *
- ****************************************************************************/
-
+ * @author Meisze Wong
+ *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ */
 public class BoggleDictionaryDefault {
-	private static String[] list;
-	
-	public BoggleDictionaryDefault() {
-		loadWords();
-	}
-	
-	String[] getWord() {
-		return list;
-	}
-	
-	private void loadWords() {
-		list = new String[971];
-		int idx = 0;
-		list[idx++] = "ABILITY";
-		list[idx++] = "ABLE";
-		list[idx++] = "ABOUT";
-		list[idx++] = "ABOVE";
-		list[idx++] = "ACCEPT";
-		list[idx++] = "ACCORDING";
-		list[idx++] = "ACCOUNT";
-		list[idx++] = "ACROSS";
-		list[idx++] = "ACT";
-		list[idx++] = "ACTION";
-		list[idx++] = "ACTIVITY";
-		list[idx++] = "ACTUALLY";
-		list[idx++] = "ADD";
-		list[idx++] = "ADDRESS";
-		list[idx++] = "ADMINISTRATION";
-		list[idx++] = "ADMIT";
-		list[idx++] = "ADULT";
-		list[idx++] = "AFFECT";
-		list[idx++] = "AFTER";
-		list[idx++] = "AGAIN";
-		list[idx++] = "AGAINST";
-		list[idx++] = "AGE";
-		list[idx++] = "AGENCY";
-		list[idx++] = "AGENT";
-		list[idx++] = "AGO";
-		list[idx++] = "AGREE";
-		list[idx++] = "AGREEMENT";
-		list[idx++] = "AHEAD";
-		list[idx++] = "AIR";
-		list[idx++] = "ALL";
-		list[idx++] = "ALLOW";
-		list[idx++] = "ALMOST";
-		list[idx++] = "ALONE";
-		list[idx++] = "ALONG";
-		list[idx++] = "ALREADY";
-		list[idx++] = "ALSO";
-		list[idx++] = "ALTHOUGH";
-		list[idx++] = "ALWAYS";
-		list[idx++] = "AMERICAN";
-		list[idx++] = "AMONG";
-		list[idx++] = "AMOUNT";
-		list[idx++] = "ANALYSIS";
-		list[idx++] = "AND";
-		list[idx++] = "ANIMAL";
-		list[idx++] = "ANOTHER";
-		list[idx++] = "ANSWER";
-		list[idx++] = "ANY";
-		list[idx++] = "ANYONE";
-		list[idx++] = "ANYTHING";
-		list[idx++] = "APPEAR";
-		list[idx++] = "APPLY";
-		list[idx++] = "APPROACH";
-		list[idx++] = "AREA";
-		list[idx++] = "ARGUE";
-		list[idx++] = "ARM";
-		list[idx++] = "AROUND";
-		list[idx++] = "ARRIVE";
-		list[idx++] = "ART";
-		list[idx++] = "ARTICLE";
-		list[idx++] = "ARTIST";
-		list[idx++] = "ASK";
-		list[idx++] = "ASSUME";
-		list[idx++] = "ATTACK";
-		list[idx++] = "ATTENTION";
-		list[idx++] = "ATTORNEY";
-		list[idx++] = "AUDIENCE";
-		list[idx++] = "AUTHOR";
-		list[idx++] = "AUTHORITY";
-		list[idx++] = "AVAILABLE";
-		list[idx++] = "AVOID";
-		list[idx++] = "AWAY";
-		list[idx++] = "BABY";
-		list[idx++] = "BACK";
-		list[idx++] = "BAD";
-		list[idx++] = "BAG";
-		list[idx++] = "BALL";
-		list[idx++] = "BANK";
-		list[idx++] = "BAR";
-		list[idx++] = "BASE";
-		list[idx++] = "BEAT";
-		list[idx++] = "BEAUTIFUL";
-		list[idx++] = "BECAUSE";
-		list[idx++] = "BECOME";
-		list[idx++] = "BED";
-		list[idx++] = "BEFORE";
-		list[idx++] = "BEGIN";
-		list[idx++] = "BEHAVIOR";
-		list[idx++] = "BEHIND";
-		list[idx++] = "BELIEVE";
-		list[idx++] = "BENEFIT";
-		list[idx++] = "BEST";
-		list[idx++] = "BETTER";
-		list[idx++] = "BETWEEN";
-		list[idx++] = "BEYOND";
-		list[idx++] = "BIG";
-		list[idx++] = "BILL";
-		list[idx++] = "BILLION";
-		list[idx++] = "BIT";
-		list[idx++] = "BLACK";
-		list[idx++] = "BLOOD";
-		list[idx++] = "BLUE";
-		list[idx++] = "BOARD";
-		list[idx++] = "BODY";
-		list[idx++] = "BOOK";
-		list[idx++] = "BORN";
-		list[idx++] = "BOTH";
-		list[idx++] = "BOX";
-		list[idx++] = "BOY";
-		list[idx++] = "BREAK";
-		list[idx++] = "BRING";
-		list[idx++] = "BROTHER";
-		list[idx++] = "BUDGET";
-		list[idx++] = "BUILD";
-		list[idx++] = "BUILDING";
-		list[idx++] = "BUSINESS";
-		list[idx++] = "BUT";
-		list[idx++] = "BUY";
-		list[idx++] = "CALL";
-		list[idx++] = "CAMERA";
-		list[idx++] = "CAMPAIGN";
-		list[idx++] = "CAN";
-		list[idx++] = "CANCER";
-		list[idx++] = "CANDIDATE";
-		list[idx++] = "CAPITAL";
-		list[idx++] = "CAR";
-		list[idx++] = "CARD";
-		list[idx++] = "CARE";
-		list[idx++] = "CAREER";
-		list[idx++] = "CARRY";
-		list[idx++] = "CASE";
-		list[idx++] = "CATCH";
-		list[idx++] = "CAUSE";
-		list[idx++] = "CELL";
-		list[idx++] = "CENTER";
-		list[idx++] = "CENTRAL";
-		list[idx++] = "CENTURY";
-		list[idx++] = "CERTAIN";
-		list[idx++] = "CERTAINLY";
-		list[idx++] = "CHAIR";
-		list[idx++] = "CHALLENGE";
-		list[idx++] = "CHANCE";
-		list[idx++] = "CHANGE";
-		list[idx++] = "CHARACTER";
-		list[idx++] = "CHARGE";
-		list[idx++] = "CHECK";
-		list[idx++] = "CHILD";
-		list[idx++] = "CHOICE";
-		list[idx++] = "CHOOSE";
-		list[idx++] = "CHURCH";
-		list[idx++] = "CITIZEN";
-		list[idx++] = "CITY";
-		list[idx++] = "CIVIL";
-		list[idx++] = "CLAIM";
-		list[idx++] = "CLASS";
-		list[idx++] = "CLEAR";
-		list[idx++] = "CLEARLY";
-		list[idx++] = "CLOSE";
-		list[idx++] = "COACH";
-		list[idx++] = "COLD";
-		list[idx++] = "COLLECTION";
-		list[idx++] = "COLLEGE";
-		list[idx++] = "COLOR";
-		list[idx++] = "COME";
-		list[idx++] = "COMMERCIAL";
-		list[idx++] = "COMMON";
-		list[idx++] = "COMMUNITY";
-		list[idx++] = "COMPANY";
-		list[idx++] = "COMPARE";
-		list[idx++] = "COMPUTER";
-		list[idx++] = "CONCERN";
-		list[idx++] = "CONDITION";
-		list[idx++] = "CONFERENCE";
-		list[idx++] = "CONGRESS";
-		list[idx++] = "CONSIDER";
-		list[idx++] = "CONSUMER";
-		list[idx++] = "CONTAIN";
-		list[idx++] = "CONTINUE";
-		list[idx++] = "CONTROL";
-		list[idx++] = "COST";
-		list[idx++] = "COULD";
-		list[idx++] = "COUNTRY";
-		list[idx++] = "COUPLE";
-		list[idx++] = "COURSE";
-		list[idx++] = "COURT";
-		list[idx++] = "COVER";
-		list[idx++] = "CREATE";
-		list[idx++] = "CRIME";
-		list[idx++] = "CULTURAL";
-		list[idx++] = "CULTURE";
-		list[idx++] = "CUP";
-		list[idx++] = "CURRENT";
-		list[idx++] = "CUSTOMER";
-		list[idx++] = "CUT";
-		list[idx++] = "DARK";
-		list[idx++] = "DATA";
-		list[idx++] = "DAUGHTER";
-		list[idx++] = "DAY";
-		list[idx++] = "DEAD";
-		list[idx++] = "DEAL";
-		list[idx++] = "DEATH";
-		list[idx++] = "DEBATE";
-		list[idx++] = "DECADE";
-		list[idx++] = "DECIDE";
-		list[idx++] = "DECISION";
-		list[idx++] = "DEEP";
-		list[idx++] = "DEFENSE";
-		list[idx++] = "DEGREE";
-		list[idx++] = "DEMOCRAT";
-		list[idx++] = "DEMOCRATIC";
-		list[idx++] = "DESCRIBE";
-		list[idx++] = "DESIGN";
-		list[idx++] = "DESPITE";
-		list[idx++] = "DETAIL";
-		list[idx++] = "DETERMINE";
-		list[idx++] = "DEVELOP";
-		list[idx++] = "DEVELOPMENT";
-		list[idx++] = "DIE";
-		list[idx++] = "DIFFERENCE";
-		list[idx++] = "DIFFERENT";
-		list[idx++] = "DIFFICULT";
-		list[idx++] = "DINNER";
-		list[idx++] = "DIRECTION";
-		list[idx++] = "DIRECTOR";
-		list[idx++] = "DISCOVER";
-		list[idx++] = "DISCUSS";
-		list[idx++] = "DISCUSSION";
-		list[idx++] = "DISEASE";
-		list[idx++] = "DOCTOR";
-		list[idx++] = "DOG";
-		list[idx++] = "DOOR";
-		list[idx++] = "DOWN";
-		list[idx++] = "DRAW";
-		list[idx++] = "DREAM";
-		list[idx++] = "DRIVE";
-		list[idx++] = "DROP";
-		list[idx++] = "DRUG";
-		list[idx++] = "DURING";
-		list[idx++] = "EACH";
-		list[idx++] = "EARLY";
-		list[idx++] = "EAST";
-		list[idx++] = "EASY";
-		list[idx++] = "EAT";
-		list[idx++] = "ECONOMIC";
-		list[idx++] = "ECONOMY";
-		list[idx++] = "EDGE";
-		list[idx++] = "EDUCATION";
-		list[idx++] = "EFFECT";
-		list[idx++] = "EFFORT";
-		list[idx++] = "EIGHT";
-		list[idx++] = "EITHER";
-		list[idx++] = "ELECTION";
-		list[idx++] = "ELSE";
-		list[idx++] = "EMPLOYEE";
-		list[idx++] = "END";
-		list[idx++] = "ENERGY";
-		list[idx++] = "ENJOY";
-		list[idx++] = "ENOUGH";
-		list[idx++] = "ENTER";
-		list[idx++] = "ENTIRE";
-		list[idx++] = "ENVIRONMENT";
-		list[idx++] = "ENVIRONMENTAL";
-		list[idx++] = "ESPECIALLY";
-		list[idx++] = "ESTABLISH";
-		list[idx++] = "EVEN";
-		list[idx++] = "EVENING";
-		list[idx++] = "EVENT";
-		list[idx++] = "EVER";
-		list[idx++] = "EVERY";
-		list[idx++] = "EVERYBODY";
-		list[idx++] = "EVERYONE";
-		list[idx++] = "EVERYTHING";
-		list[idx++] = "EVIDENCE";
-		list[idx++] = "EXACTLY";
-		list[idx++] = "EXAMPLE";
-		list[idx++] = "EXECUTIVE";
-		list[idx++] = "EXIST";
-		list[idx++] = "EXPECT";
-		list[idx++] = "EXPERIENCE";
-		list[idx++] = "EXPERT";
-		list[idx++] = "EXPLAIN";
-		list[idx++] = "EYE";
-		list[idx++] = "FACE";
-		list[idx++] = "FACT";
-		list[idx++] = "FACTOR";
-		list[idx++] = "FAIL";
-		list[idx++] = "FALL";
-		list[idx++] = "FAMILY";
-		list[idx++] = "FAR";
-		list[idx++] = "FAST";
-		list[idx++] = "FATHER";
-		list[idx++] = "FEAR";
-		list[idx++] = "FEDERAL";
-		list[idx++] = "FEEL";
-		list[idx++] = "FEELING";
-		list[idx++] = "FEW";
-		list[idx++] = "FIELD";
-		list[idx++] = "FIGHT";
-		list[idx++] = "FIGURE";
-		list[idx++] = "FILL";
-		list[idx++] = "FILM";
-		list[idx++] = "FINAL";
-		list[idx++] = "FINALLY";
-		list[idx++] = "FINANCIAL";
-		list[idx++] = "FIND";
-		list[idx++] = "FINE";
-		list[idx++] = "FINGER";
-		list[idx++] = "FINISH";
-		list[idx++] = "FIRE";
-		list[idx++] = "FIRM";
-		list[idx++] = "FIRST";
-		list[idx++] = "FISH";
-		list[idx++] = "FIVE";
-		list[idx++] = "FLOOR";
-		list[idx++] = "FLY";
-		list[idx++] = "FOCUS";
-		list[idx++] = "FOLLOW";
-		list[idx++] = "FOOD";
-		list[idx++] = "FOOT";
-		list[idx++] = "FOR";
-		list[idx++] = "FORCE";
-		list[idx++] = "FOREIGN";
-		list[idx++] = "FORGET";
-		list[idx++] = "FORM";
-		list[idx++] = "FORMER";
-		list[idx++] = "FORWARD";
-		list[idx++] = "FOUR";
-		list[idx++] = "FREE";
-		list[idx++] = "FRIEND";
-		list[idx++] = "FROM";
-		list[idx++] = "FRONT";
-		list[idx++] = "FULL";
-		list[idx++] = "FUND";
-		list[idx++] = "FUTURE";
-		list[idx++] = "GAME";
-		list[idx++] = "GARDEN";
-		list[idx++] = "GAS";
-		list[idx++] = "GENERAL";
-		list[idx++] = "GENERATION";
-		list[idx++] = "GET";
-		list[idx++] = "GIRL";
-		list[idx++] = "GIVE";
-		list[idx++] = "GLASS";
-		list[idx++] = "GOAL";
-		list[idx++] = "GOOD";
-		list[idx++] = "GOVERNMENT";
-		list[idx++] = "GREAT";
-		list[idx++] = "GREEN";
-		list[idx++] = "GROUND";
-		list[idx++] = "GROUP";
-		list[idx++] = "GROW";
-		list[idx++] = "GROWTH";
-		list[idx++] = "GUESS";
-		list[idx++] = "GUN";
-		list[idx++] = "GUY";
-		list[idx++] = "HAIR";
-		list[idx++] = "HALF";
-		list[idx++] = "HAND";
-		list[idx++] = "HANG";
-		list[idx++] = "HAPPEN";
-		list[idx++] = "HAPPY";
-		list[idx++] = "HARD";
-		list[idx++] = "HAVE";
-		list[idx++] = "HEAD";
-		list[idx++] = "HEALTH";
-		list[idx++] = "HEAR";
-		list[idx++] = "HEART";
-		list[idx++] = "HEAT";
-		list[idx++] = "HEAVY";
-		list[idx++] = "HELP";
-		list[idx++] = "HER";
-		list[idx++] = "HERE";
-		list[idx++] = "HERSELF";
-		list[idx++] = "HIGH";
-		list[idx++] = "HIM";
-		list[idx++] = "HIMSELF";
-		list[idx++] = "HIS";
-		list[idx++] = "HISTORY";
-		list[idx++] = "HIT";
-		list[idx++] = "HOLD";
-		list[idx++] = "HOME";
-		list[idx++] = "HOPE";
-		list[idx++] = "HOSPITAL";
-		list[idx++] = "HOT";
-		list[idx++] = "HOTEL";
-		list[idx++] = "HOUR";
-		list[idx++] = "HOUSE";
-		list[idx++] = "HOW";
-		list[idx++] = "HOWEVER";
-		list[idx++] = "HUGE";
-		list[idx++] = "HUMAN";
-		list[idx++] = "HUNDRED";
-		list[idx++] = "HUSBAND";
-		list[idx++] = "IDEA";
-		list[idx++] = "IDENTIFY";
-		list[idx++] = "IMAGE";
-		list[idx++] = "IMAGINE";
-		list[idx++] = "IMPACT";
-		list[idx++] = "IMPORTANT";
-		list[idx++] = "IMPROVE";
-		list[idx++] = "INCLUDE";
-		list[idx++] = "INCLUDING";
-		list[idx++] = "INCREASE";
-		list[idx++] = "INDEED";
-		list[idx++] = "INDICATE";
-		list[idx++] = "INDIVIDUAL";
-		list[idx++] = "INDUSTRY";
-		list[idx++] = "INFORMATION";
-		list[idx++] = "INSIDE";
-		list[idx++] = "INSTEAD";
-		list[idx++] = "INSTITUTION";
-		list[idx++] = "INTEREST";
-		list[idx++] = "INTERESTING";
-		list[idx++] = "INTERNATIONAL";
-		list[idx++] = "INTERVIEW";
-		list[idx++] = "INTO";
-		list[idx++] = "INVESTMENT";
-		list[idx++] = "INVOLVE";
-		list[idx++] = "ISSUE";
-		list[idx++] = "ITEM";
-		list[idx++] = "ITS";
-		list[idx++] = "ITSELF";
-		list[idx++] = "JOB";
-		list[idx++] = "JOIN";
-		list[idx++] = "JUST";
-		list[idx++] = "KEEP";
-		list[idx++] = "KEY";
-		list[idx++] = "KID";
-		list[idx++] = "KILL";
-		list[idx++] = "KIND";
-		list[idx++] = "KITCHEN";
-		list[idx++] = "KNOW";
-		list[idx++] = "KNOWLEDGE";
-		list[idx++] = "LAND";
-		list[idx++] = "LANGUAGE";
-		list[idx++] = "LARGE";
-		list[idx++] = "LAST";
-		list[idx++] = "LATE";
-		list[idx++] = "LATER";
-		list[idx++] = "LAUGH";
-		list[idx++] = "LAW";
-		list[idx++] = "LAWYER";
-		list[idx++] = "LAY";
-		list[idx++] = "LEAD";
-		list[idx++] = "LEADER";
-		list[idx++] = "LEARN";
-		list[idx++] = "LEAST";
-		list[idx++] = "LEAVE";
-		list[idx++] = "LEFT";
-		list[idx++] = "LEG";
-		list[idx++] = "LEGAL";
-		list[idx++] = "LESS";
-		list[idx++] = "LET";
-		list[idx++] = "LETTER";
-		list[idx++] = "LEVEL";
-		list[idx++] = "LIE";
-		list[idx++] = "LIFE";
-		list[idx++] = "LIGHT";
-		list[idx++] = "LIKE";
-		list[idx++] = "LIKELY";
-		list[idx++] = "LINE";
-		list[idx++] = "LIST";
-		list[idx++] = "LISTEN";
-		list[idx++] = "LITTLE";
-		list[idx++] = "LIVE";
-		list[idx++] = "LOCAL";
-		list[idx++] = "LONG";
-		list[idx++] = "LOOK";
-		list[idx++] = "LOSE";
-		list[idx++] = "LOSS";
-		list[idx++] = "LOT";
-		list[idx++] = "LOVE";
-		list[idx++] = "LOW";
-		list[idx++] = "MACHINE";
-		list[idx++] = "MAGAZINE";
-		list[idx++] = "MAIN";
-		list[idx++] = "MAINTAIN";
-		list[idx++] = "MAJOR";
-		list[idx++] = "MAJORITY";
-		list[idx++] = "MAKE";
-		list[idx++] = "MAN";
-		list[idx++] = "MANAGE";
-		list[idx++] = "MANAGEMENT";
-		list[idx++] = "MANAGER";
-		list[idx++] = "MANY";
-		list[idx++] = "MARKET";
-		list[idx++] = "MARRIAGE";
-		list[idx++] = "MATERIAL";
-		list[idx++] = "MATTER";
-		list[idx++] = "MAY";
-		list[idx++] = "MAYBE";
-		list[idx++] = "MEAN";
-		list[idx++] = "MEASURE";
-		list[idx++] = "MEDIA";
-		list[idx++] = "MEDICAL";
-		list[idx++] = "MEET";
-		list[idx++] = "MEETING";
-		list[idx++] = "MEMBER";
-		list[idx++] = "MEMORY";
-		list[idx++] = "MENTION";
-		list[idx++] = "MESSAGE";
-		list[idx++] = "METHOD";
-		list[idx++] = "MIDDLE";
-		list[idx++] = "MIGHT";
-		list[idx++] = "MILITARY";
-		list[idx++] = "MILLION";
-		list[idx++] = "MIND";
-		list[idx++] = "MINUTE";
-		list[idx++] = "MISS";
-		list[idx++] = "MISSION";
-		list[idx++] = "MODEL";
-		list[idx++] = "MODERN";
-		list[idx++] = "MOMENT";
-		list[idx++] = "MONEY";
-		list[idx++] = "MONTH";
-		list[idx++] = "MORE";
-		list[idx++] = "MORNING";
-		list[idx++] = "MOST";
-		list[idx++] = "MOTHER";
-		list[idx++] = "MOUTH";
-		list[idx++] = "MOVE";
-		list[idx++] = "MOVEMENT";
-		list[idx++] = "MOVIE";
-		list[idx++] = "MRS";
-		list[idx++] = "MUCH";
-		list[idx++] = "MUSIC";
-		list[idx++] = "MUST";
-		list[idx++] = "MYSELF";
-		list[idx++] = "NAME";
-		list[idx++] = "NATION";
-		list[idx++] = "NATIONAL";
-		list[idx++] = "NATURAL";
-		list[idx++] = "NATURE";
-		list[idx++] = "NEAR";
-		list[idx++] = "NEARLY";
-		list[idx++] = "NECESSARY";
-		list[idx++] = "NEED";
-		list[idx++] = "NETWORK";
-		list[idx++] = "NEVER";
-		list[idx++] = "NEW";
-		list[idx++] = "NEWS";
-		list[idx++] = "NEWSPAPER";
-		list[idx++] = "NEXT";
-		list[idx++] = "NICE";
-		list[idx++] = "NIGHT";
-		list[idx++] = "NONE";
-		list[idx++] = "NOR";
-		list[idx++] = "NORTH";
-		list[idx++] = "NOT";
-		list[idx++] = "NOTE";
-		list[idx++] = "NOTHING";
-		list[idx++] = "NOTICE";
-		list[idx++] = "NOW";
-		list[idx++] = "NUMBER";
-		list[idx++] = "OCCUR";
-		list[idx++] = "OFF";
-		list[idx++] = "OFFER";
-		list[idx++] = "OFFICE";
-		list[idx++] = "OFFICER";
-		list[idx++] = "OFFICIAL";
-		list[idx++] = "OFTEN";
-		list[idx++] = "OIL";
-		list[idx++] = "OLD";
-		list[idx++] = "ONCE";
-		list[idx++] = "ONE";
-		list[idx++] = "ONLY";
-		list[idx++] = "ONTO";
-		list[idx++] = "OPEN";
-		list[idx++] = "OPERATION";
-		list[idx++] = "OPPORTUNITY";
-		list[idx++] = "OPTION";
-		list[idx++] = "ORDER";
-		list[idx++] = "ORGANIZATION";
-		list[idx++] = "OTHER";
-		list[idx++] = "OTHERS";
-		list[idx++] = "OUR";
-		list[idx++] = "OUT";
-		list[idx++] = "OUTSIDE";
-		list[idx++] = "OVER";
-		list[idx++] = "OWN";
-		list[idx++] = "OWNER";
-		list[idx++] = "PAGE";
-		list[idx++] = "PAIN";
-		list[idx++] = "PAINTING";
-		list[idx++] = "PAPER";
-		list[idx++] = "PARENT";
-		list[idx++] = "PART";
-		list[idx++] = "PARTICIPANT";
-		list[idx++] = "PARTICULAR";
-		list[idx++] = "PARTICULARLY";
-		list[idx++] = "PARTNER";
-		list[idx++] = "PARTY";
-		list[idx++] = "PASS";
-		list[idx++] = "PAST";
-		list[idx++] = "PATIENT";
-		list[idx++] = "PATTERN";
-		list[idx++] = "PAY";
-		list[idx++] = "PEACE";
-		list[idx++] = "PEOPLE";
-		list[idx++] = "PER";
-		list[idx++] = "PERFORM";
-		list[idx++] = "PERFORMANCE";
-		list[idx++] = "PERHAPS";
-		list[idx++] = "PERIOD";
-		list[idx++] = "PERSON";
-		list[idx++] = "PERSONAL";
-		list[idx++] = "PHONE";
-		list[idx++] = "PHYSICAL";
-		list[idx++] = "PICK";
-		list[idx++] = "PICTURE";
-		list[idx++] = "PIECE";
-		list[idx++] = "PLACE";
-		list[idx++] = "PLAN";
-		list[idx++] = "PLANT";
-		list[idx++] = "PLAY";
-		list[idx++] = "PLAYER";
-		list[idx++] = "POINT";
-		list[idx++] = "POLICE";
-		list[idx++] = "POLICY";
-		list[idx++] = "POLITICAL";
-		list[idx++] = "POLITICS";
-		list[idx++] = "POOR";
-		list[idx++] = "POPULAR";
-		list[idx++] = "POPULATION";
-		list[idx++] = "POSITION";
-		list[idx++] = "POSITIVE";
-		list[idx++] = "POSSIBLE";
-		list[idx++] = "POWER";
-		list[idx++] = "PRACTICE";
-		list[idx++] = "PREPARE";
-		list[idx++] = "PRESENT";
-		list[idx++] = "PRESIDENT";
-		list[idx++] = "PRESSURE";
-		list[idx++] = "PRETTY";
-		list[idx++] = "PREVENT";
-		list[idx++] = "PRICE";
-		list[idx++] = "PRIVATE";
-		list[idx++] = "PROBABLY";
-		list[idx++] = "PROBLEM";
-		list[idx++] = "PROCESS";
-		list[idx++] = "PRODUCE";
-		list[idx++] = "PRODUCT";
-		list[idx++] = "PRODUCTION";
-		list[idx++] = "PROFESSIONAL";
-		list[idx++] = "PROFESSOR";
-		list[idx++] = "PROGRAM";
-		list[idx++] = "PROJECT";
-		list[idx++] = "PROPERTY";
-		list[idx++] = "PROTECT";
-		list[idx++] = "PROVE";
-		list[idx++] = "PROVIDE";
-		list[idx++] = "PUBLIC";
-		list[idx++] = "PULL";
-		list[idx++] = "PURPOSE";
-		list[idx++] = "PUSH";
-		list[idx++] = "PUT";
-		list[idx++] = "QUALITY";
-		list[idx++] = "QUESTION";
-		list[idx++] = "QUICKLY";
-		list[idx++] = "QUITE";
-		list[idx++] = "RACE";
-		list[idx++] = "RADIO";
-		list[idx++] = "RAISE";
-		list[idx++] = "RANGE";
-		list[idx++] = "RATE";
-		list[idx++] = "RATHER";
-		list[idx++] = "REACH";
-		list[idx++] = "READ";
-		list[idx++] = "READY";
-		list[idx++] = "REAL";
-		list[idx++] = "REALITY";
-		list[idx++] = "REALIZE";
-		list[idx++] = "REALLY";
-		list[idx++] = "REASON";
-		list[idx++] = "RECEIVE";
-		list[idx++] = "RECENT";
-		list[idx++] = "RECENTLY";
-		list[idx++] = "RECOGNIZE";
-		list[idx++] = "RECORD";
-		list[idx++] = "RED";
-		list[idx++] = "REDUCE";
-		list[idx++] = "REFLECT";
-		list[idx++] = "REGION";
-		list[idx++] = "RELATE";
-		list[idx++] = "RELATIONSHIP";
-		list[idx++] = "RELIGIOUS";
-		list[idx++] = "REMAIN";
-		list[idx++] = "REMEMBER";
-		list[idx++] = "REMOVE";
-		list[idx++] = "REPORT";
-		list[idx++] = "REPRESENT";
-		list[idx++] = "REPUBLICAN";
-		list[idx++] = "REQUIRE";
-		list[idx++] = "RESEARCH";
-		list[idx++] = "RESOURCE";
-		list[idx++] = "RESPOND";
-		list[idx++] = "RESPONSE";
-		list[idx++] = "RESPONSIBILITY";
-		list[idx++] = "REST";
-		list[idx++] = "RESULT";
-		list[idx++] = "RETURN";
-		list[idx++] = "REVEAL";
-		list[idx++] = "RICH";
-		list[idx++] = "RIGHT";
-		list[idx++] = "RISE";
-		list[idx++] = "RISK";
-		list[idx++] = "ROAD";
-		list[idx++] = "ROCK";
-		list[idx++] = "ROLE";
-		list[idx++] = "ROOM";
-		list[idx++] = "RULE";
-		list[idx++] = "RUN";
-		list[idx++] = "SAFE";
-		list[idx++] = "SAME";
-		list[idx++] = "SAVE";
-		list[idx++] = "SAY";
-		list[idx++] = "SCENE";
-		list[idx++] = "SCHOOL";
-		list[idx++] = "SCIENCE";
-		list[idx++] = "SCIENTIST";
-		list[idx++] = "SCORE";
-		list[idx++] = "SEA";
-		list[idx++] = "SEASON";
-		list[idx++] = "SEAT";
-		list[idx++] = "SECOND";
-		list[idx++] = "SECTION";
-		list[idx++] = "SECURITY";
-		list[idx++] = "SEE";
-		list[idx++] = "SEEK";
-		list[idx++] = "SEEM";
-		list[idx++] = "SELL";
-		list[idx++] = "SEND";
-		list[idx++] = "SENIOR";
-		list[idx++] = "SENSE";
-		list[idx++] = "SERIES";
-		list[idx++] = "SERIOUS";
-		list[idx++] = "SERVE";
-		list[idx++] = "SERVICE";
-		list[idx++] = "SET";
-		list[idx++] = "SEVEN";
-		list[idx++] = "SEVERAL";
-		list[idx++] = "SEX";
-		list[idx++] = "SEXUAL";
-		list[idx++] = "SHAKE";
-		list[idx++] = "SHARE";
-		list[idx++] = "SHE";
-		list[idx++] = "SHOOT";
-		list[idx++] = "SHORT";
-		list[idx++] = "SHOT";
-		list[idx++] = "SHOULD";
-		list[idx++] = "SHOULDER";
-		list[idx++] = "SHOW";
-		list[idx++] = "SIDE";
-		list[idx++] = "SIGN";
-		list[idx++] = "SIGNIFICANT";
-		list[idx++] = "SIMILAR";
-		list[idx++] = "SIMPLE";
-		list[idx++] = "SIMPLY";
-		list[idx++] = "SINCE";
-		list[idx++] = "SING";
-		list[idx++] = "SINGLE";
-		list[idx++] = "SISTER";
-		list[idx++] = "SIT";
-		list[idx++] = "SITE";
-		list[idx++] = "SITUATION";
-		list[idx++] = "SIX";
-		list[idx++] = "SIZE";
-		list[idx++] = "SKILL";
-		list[idx++] = "SKIN";
-		list[idx++] = "SMALL";
-		list[idx++] = "SMILE";
-		list[idx++] = "SOCIAL";
-		list[idx++] = "SOCIETY";
-		list[idx++] = "SOLDIER";
-		list[idx++] = "SOME";
-		list[idx++] = "SOMEBODY";
-		list[idx++] = "SOMEONE";
-		list[idx++] = "SOMETHING";
-		list[idx++] = "SOMETIMES";
-		list[idx++] = "SON";
-		list[idx++] = "SONG";
-		list[idx++] = "SOON";
-		list[idx++] = "SORT";
-		list[idx++] = "SOUND";
-		list[idx++] = "SOURCE";
-		list[idx++] = "SOUTH";
-		list[idx++] = "SOUTHERN";
-		list[idx++] = "SPACE";
-		list[idx++] = "SPEAK";
-		list[idx++] = "SPECIAL";
-		list[idx++] = "SPECIFIC";
-		list[idx++] = "SPEECH";
-		list[idx++] = "SPEND";
-		list[idx++] = "SPORT";
-		list[idx++] = "SPRING";
-		list[idx++] = "STAFF";
-		list[idx++] = "STAGE";
-		list[idx++] = "STAND";
-		list[idx++] = "STANDARD";
-		list[idx++] = "STAR";
-		list[idx++] = "START";
-		list[idx++] = "STATE";
-		list[idx++] = "STATEMENT";
-		list[idx++] = "STATION";
-		list[idx++] = "STAY";
-		list[idx++] = "STEP";
-		list[idx++] = "STILL";
-		list[idx++] = "STOCK";
-		list[idx++] = "STOP";
-		list[idx++] = "STORE";
-		list[idx++] = "STORY";
-		list[idx++] = "STRATEGY";
-		list[idx++] = "STREET";
-		list[idx++] = "STRONG";
-		list[idx++] = "STRUCTURE";
-		list[idx++] = "STUDENT";
-		list[idx++] = "STUDY";
-		list[idx++] = "STUFF";
-		list[idx++] = "STYLE";
-		list[idx++] = "SUBJECT";
-		list[idx++] = "SUCCESS";
-		list[idx++] = "SUCCESSFUL";
-		list[idx++] = "SUCH";
-		list[idx++] = "SUDDENLY";
-		list[idx++] = "SUFFER";
-		list[idx++] = "SUGGEST";
-		list[idx++] = "SUMMER";
-		list[idx++] = "SUPPORT";
-		list[idx++] = "SURE";
-		list[idx++] = "SURFACE";
-		list[idx++] = "SYSTEM";
-		list[idx++] = "TABLE";
-		list[idx++] = "TAKE";
-		list[idx++] = "TALK";
-		list[idx++] = "TASK";
-		list[idx++] = "TAX";
-		list[idx++] = "TEACH";
-		list[idx++] = "TEACHER";
-		list[idx++] = "TEAM";
-		list[idx++] = "TECHNOLOGY";
-		list[idx++] = "TELEVISION";
-		list[idx++] = "TELL";
-		list[idx++] = "TEN";
-		list[idx++] = "TEND";
-		list[idx++] = "TERM";
-		list[idx++] = "TEST";
-		list[idx++] = "THAN";
-		list[idx++] = "THANK";
-		list[idx++] = "THAT";
-		list[idx++] = "THE";
-		list[idx++] = "THEIR";
-		list[idx++] = "THEM";
-		list[idx++] = "THEMSELVES";
-		list[idx++] = "THEN";
-		list[idx++] = "THEORY";
-		list[idx++] = "THERE";
-		list[idx++] = "THESE";
-		list[idx++] = "THEY";
-		list[idx++] = "THING";
-		list[idx++] = "THINK";
-		list[idx++] = "THIRD";
-		list[idx++] = "THIS";
-		list[idx++] = "THOSE";
-		list[idx++] = "THOUGH";
-		list[idx++] = "THOUGHT";
-		list[idx++] = "THOUSAND";
-		list[idx++] = "THREAT";
-		list[idx++] = "THREE";
-		list[idx++] = "THROUGH";
-		list[idx++] = "THROUGHOUT";
-		list[idx++] = "THROW";
-		list[idx++] = "THUS";
-		list[idx++] = "TIME";
-		list[idx++] = "TODAY";
-		list[idx++] = "TOGETHER";
-		list[idx++] = "TONIGHT";
-		list[idx++] = "TOO";
-		list[idx++] = "TOP";
-		list[idx++] = "TOTAL";
-		list[idx++] = "TOUGH";
-		list[idx++] = "TOWARD";
-		list[idx++] = "TOWN";
-		list[idx++] = "TRADE";
-		list[idx++] = "TRADITIONAL";
-		list[idx++] = "TRAINING";
-		list[idx++] = "TRAVEL";
-		list[idx++] = "TREAT";
-		list[idx++] = "TREATMENT";
-		list[idx++] = "TREE";
-		list[idx++] = "TRIAL";
-		list[idx++] = "TRIP";
-		list[idx++] = "TROUBLE";
-		list[idx++] = "TRUE";
-		list[idx++] = "TRUTH";
-		list[idx++] = "TRY";
-		list[idx++] = "TURN";
-		list[idx++] = "TWO";
-		list[idx++] = "TYPE";
-		list[idx++] = "UNDER";
-		list[idx++] = "UNDERSTAND";
-		list[idx++] = "UNIT";
-		list[idx++] = "UNTIL";
-		list[idx++] = "UPON";
-		list[idx++] = "USE";
-		list[idx++] = "USUALLY";
-		list[idx++] = "VALUE";
-		list[idx++] = "VARIOUS";
-		list[idx++] = "VERY";
-		list[idx++] = "VICTIM";
-		list[idx++] = "VIEW";
-		list[idx++] = "VIOLENCE";
-		list[idx++] = "VISIT";
-		list[idx++] = "VOICE";
-		list[idx++] = "VOTE";
-		list[idx++] = "WAIT";
-		list[idx++] = "WALK";
-		list[idx++] = "WALL";
-		list[idx++] = "WANT";
-		list[idx++] = "WAR";
-		list[idx++] = "WATCH";
-		list[idx++] = "WATER";
-		list[idx++] = "WAY";
-		list[idx++] = "WEAPON";
-		list[idx++] = "WEAR";
-		list[idx++] = "WEEK";
-		list[idx++] = "WEIGHT";
-		list[idx++] = "WELL";
-		list[idx++] = "WEST";
-		list[idx++] = "WESTERN";
-		list[idx++] = "WHAT";
-		list[idx++] = "WHATEVER";
-		list[idx++] = "WHEN";
-		list[idx++] = "WHERE";
-		list[idx++] = "WHETHER";
-		list[idx++] = "WHICH";
-		list[idx++] = "WHILE";
-		list[idx++] = "WHITE";
-		list[idx++] = "WHO";
-		list[idx++] = "WHOLE";
-		list[idx++] = "WHOM";
-		list[idx++] = "WHOSE";
-		list[idx++] = "WHY";
-		list[idx++] = "WIDE";
-		list[idx++] = "WIFE";
-		list[idx++] = "WILL";
-		list[idx++] = "WIN";
-		list[idx++] = "WIND";
-		list[idx++] = "WINDOW";
-		list[idx++] = "WISH";
-		list[idx++] = "WITH";
-		list[idx++] = "WITHIN";
-		list[idx++] = "WITHOUT";
-		list[idx++] = "WOMAN";
-		list[idx++] = "WONDER";
-		list[idx++] = "WORD";
-		list[idx++] = "WORK";
-		list[idx++] = "WORKER";
-		list[idx++] = "WORLD";
-		list[idx++] = "WORRY";
-		list[idx++] = "WOULD";
-		list[idx++] = "WRITE";
-		list[idx++] = "WRITER";
-		list[idx++] = "WRONG";
-		list[idx++] = "YARD";
-		list[idx++] = "YEAH";
-		list[idx++] = "YEAR";
-		list[idx++] = "YES";
-		list[idx++] = "YET";
-		list[idx++] = "YOU";
-		list[idx++] = "YOUNG";
-		list[idx++] = "YOUR";
-		list[idx++] = "YOURSELF";
-	}
+    private static String[] list = {"ABILITY", "ABLE", "ABOUT", "ABOVE", "ACCEPT", "ACCORDING",
+        "ACCOUNT", "ACROSS", "ACT", "ACTION", "ACTIVITY", "ACTUALLY", "ADD", "ADDRESS",
+        "ADMINISTRATION", "ADMIT", "ADULT", "AFFECT", "AFTER", "AGAIN", "AGAINST", "AGE", "AGENCY",
+        "AGENT", "AGO", "AGREE", "AGREEMENT", "AHEAD", "AIR", "ALL", "ALLOW", "ALMOST", "ALONE",
+        "ALONG", "ALREADY", "ALSO", "ALTHOUGH", "ALWAYS", "AMERICAN", "AMONG", "AMOUNT", "ANALYSIS",
+        "AND", "ANIMAL", "ANOTHER", "ANSWER", "ANY", "ANYONE", "ANYTHING", "APPEAR", "APPLY",
+        "APPROACH", "AREA", "ARGUE", "ARM", "AROUND", "ARRIVE", "ART", "ARTICLE", "ARTIST", "ASK",
+        "ASSUME", "ATTACK", "ATTENTION", "ATTORNEY", "AUDIENCE", "AUTHOR", "AUTHORITY", "AVAILABLE",
+        "AVOID", "AWAY",
+        "BABY", "BACK", "BAD", "BAG", "BALL", "BANK", "BAR", "BASE", "BEAT", "BEAUTIFUL", "BECAUSE",
+        "BECOME", "BED", "BEFORE", "BEGIN", "BEHAVIOR", "BEHIND", "BELIEVE", "BENEFIT", "BEST",
+        "BETTER", "BETWEEN", "BEYOND", "BIG", "BILL", "BILLION", "BIT", "BLACK", "BLOOD", "BLUE",
+        "BOARD", "BODY", "BOOK", "BORN", "BOTH", "BOX", "BOY", "BREAK", "BRING", "BROTHER",
+        "BUDGET", "BUILD", "BUILDING", "BUSINESS", "BUT", "BUY",
+        "CALL", "CAMERA", "CAMPAIGN", "CAN", "CANCER", "CANDIDATE", "CAPITAL", "CAR", "CARD",
+        "CARE", "CAREER", "CARRY", "CASE", "CATCH", "CAUSE", "CELL", "CENTER", "CENTRAL", "CENTURY",
+        "CERTAIN", "CERTAINLY", "CHAIR", "CHALLENGE", "CHANCE", "CHANGE", "CHARACTER", "CHARGE",
+        "CHECK", "CHILD", "CHOICE", "CHOOSE", "CHURCH", "CITIZEN", "CITY", "CIVIL", "CLAIM",
+        "CLASS", "CLEAR", "CLEARLY", "CLOSE", "COACH", "COLD", "COLLECTION", "COLLEGE", "COLOR",
+        "COME", "COMMERCIAL", "COMMON", "COMMUNITY", "COMPANY", "COMPARE", "COMPUTER", "CONCERN",
+        "CONDITION", "CONFERENCE", "CONGRESS", "CONSIDER", "CONSUMER", "CONTAIN", "CONTINUE",
+        "CONTROL", "COST", "COULD", "COUNTRY", "COUPLE", "COURSE", "COURT", "COVER", "CREATE",
+        "CRIME", "CULTURAL", "CULTURE", "CUP", "CURRENT", "CUSTOMER", "CUT",
+        "DARK", "DATA", "DAUGHTER", "DAY", "DEAD", "DEAL", "DEATH", "DEBATE", "DECADE", "DECIDE",
+        "DECISION", "DEEP", "DEFENSE", "DEGREE", "DEMOCRAT", "DEMOCRATIC", "DESCRIBE", "DESIGN",
+        "DESPITE", "DETAIL", "DETERMINE", "DEVELOP", "DEVELOPMENT", "DIE", "DIFFERENCE",
+        "DIFFERENT", "DIFFICULT", "DINNER", "DIRECTION", "DIRECTOR", "DISCOVER", "DISCUSS",
+        "DISCUSSION", "DISEASE", "DOCTOR", "DOG", "DOOR", "DOWN", "DRAW", "DREAM", "DRIVE", "DROP",
+        "DRUG", "DURING",
+        "EACH", "EARLY", "EAST", "EASY", "EAT", "ECONOMIC", "ECONOMY", "EDGE", "EDUCATION",
+        "EFFECT", "EFFORT", "EIGHT", "EITHER", "ELECTION", "ELSE", "EMPLOYEE", "END", "ENERGY",
+        "ENJOY", "ENOUGH", "ENTER", "ENTIRE", "ENVIRONMENT", "ENVIRONMENTAL", "ESPECIALLY",
+        "ESTABLISH", "EVEN", "EVENING", "EVENT", "EVER", "EVERY", "EVERYBODY", "EVERYONE",
+        "EVERYTHING", "EVIDENCE", "EXACTLY", "EXAMPLE", "EXECUTIVE", "EXIST", "EXPECT",
+        "EXPERIENCE", "EXPERT", "EXPLAIN", "EYE",
+        "FACE", "FACT", "FACTOR", "FAIL", "FALL", "FAMILY", "FAR", "FAST", "FATHER", "FEAR",
+        "FEDERAL", "FEEL", "FEELING", "FEW", "FIELD", "FIGHT", "FIGURE", "FILL", "FILM", "FINAL",
+        "FINALLY", "FINANCIAL", "FIND", "FINE", "FINGER", "FINISH", "FIRE", "FIRM", "FIRST", "FISH",
+        "FIVE", "FLOOR", "FLY", "FOCUS", "FOLLOW", "FOOD", "FOOT", "FOR", "FORCE", "FOREIGN",
+        "FORGET", "FORM", "FORMER", "FORWARD", "FOUR", "FREE", "FRIEND", "FROM", "FRONT", "FULL",
+        "FUND", "FUTURE",
+        "GAME", "GARDEN", "GAS", "GENERAL", "GENERATION", "GET", "GIRL", "GIVE", "GLASS", "GOAL",
+        "GOOD", "GOVERNMENT", "GREAT", "GREEN", "GROUND", "GROUP", "GROW", "GROWTH", "GUESS", "GUN",
+        "GUY",
+        "HAIR", "HALF", "HAND", "HANG", "HAPPEN", "HAPPY", "HARD", "HAVE", "HEAD", "HEALTH", "HEAR",
+        "HEART", "HEAT", "HEAVY", "HELP", "HER", "HERE", "HERSELF", "HIGH", "HIM", "HIMSELF", "HIS",
+        "HISTORY", "HIT", "HOLD", "HOME", "HOPE", "HOSPITAL", "HOT", "HOTEL", "HOUR", "HOUSE",
+        "HOW", "HOWEVER", "HUGE", "HUMAN", "HUNDRED", "HUSBAND",
+        "IDEA", "IDENTIFY", "IMAGE", "IMAGINE", "IMPACT", "IMPORTANT", "IMPROVE", "INCLUDE",
+        "INCLUDING", "INCREASE", "INDEED", "INDICATE", "INDIVIDUAL", "INDUSTRY", "INFORMATION",
+        "INSIDE", "INSTEAD", "INSTITUTION", "INTEREST", "INTERESTING", "INTERNATIONAL", "INTERVIEW",
+        "INTO", "INVESTMENT", "INVOLVE", "ISSUE", "ITEM", "ITS", "ITSELF",
+        "JOB", "JOIN", "JUST",
+        "KEEP", "KEY", "KID", "KILL", "KIND", "KITCHEN", "KNOW", "KNOWLEDGE",
+        "LAND", "LANGUAGE", "LARGE", "LAST", "LATE", "LATER", "LAUGH", "LAW", "LAWYER", "LAY",
+        "LEAD", "LEADER", "LEARN", "LEAST", "LEAVE", "LEFT", "LEG", "LEGAL", "LESS", "LET",
+        "LETTER", "LEVEL", "LIE", "LIFE", "LIGHT", "LIKE", "LIKELY", "LINE", "LIST", "LISTEN",
+        "LITTLE", "LIVE", "LOCAL", "LONG", "LOOK", "LOSE", "LOSS", "LOT", "LOVE", "LOW",
+        "MACHINE", "MAGAZINE", "MAIN", "MAINTAIN", "MAJOR", "MAJORITY", "MAKE", "MAN", "MANAGE",
+        "MANAGEMENT", "MANAGER", "MANY", "MARKET", "MARRIAGE", "MATERIAL", "MATTER", "MAY", "MAYBE",
+        "MEAN", "MEASURE", "MEDIA", "MEDICAL", "MEET", "MEETING", "MEMBER", "MEMORY", "MENTION",
+        "MESSAGE", "METHOD", "MIDDLE", "MIGHT", "MILITARY", "MILLION", "MIND", "MINUTE", "MISS",
+        "MISSION", "MODEL", "MODERN", "MOMENT", "MONEY", "MONTH", "MORE", "MORNING", "MOST",
+        "MOTHER", "MOUTH", "MOVE", "MOVEMENT", "MOVIE", "MRS", "MUCH", "MUSIC", "MUST", "MYSELF",
+        "NAME", "NATION", "NATIONAL", "NATURAL", "NATURE", "NEAR", "NEARLY", "NECESSARY", "NEED",
+        "NETWORK", "NEVER", "NEW", "NEWS", "NEWSPAPER", "NEXT", "NICE", "NIGHT", "NONE", "NOR",
+        "NORTH", "NOT", "NOTE", "NOTHING", "NOTICE", "NOW", "NUMBER",
+        "OCCUR", "OFF", "OFFER", "OFFICE", "OFFICER", "OFFICIAL", "OFTEN", "OIL", "OLD", "ONCE",
+        "ONE", "ONLY", "ONTO", "OPEN", "OPERATION", "OPPORTUNITY", "OPTION", "ORDER",
+        "ORGANIZATION", "OTHER", "OTHERS", "OUR", "OUT", "OUTSIDE", "OVER", "OWN", "OWNER",
+        "PAGE", "PAIN", "PAINTING", "PAPER", "PARENT", "PART", "PARTICIPANT", "PARTICULAR",
+        "PARTICULARLY", "PARTNER", "PARTY", "PASS", "PAST", "PATIENT", "PATTERN", "PAY", "PEACE",
+        "PEOPLE", "PER", "PERFORM", "PERFORMANCE", "PERHAPS", "PERIOD", "PERSON", "PERSONAL",
+        "PHONE", "PHYSICAL", "PICK", "PICTURE", "PIECE", "PLACE", "PLAN", "PLANT", "PLAY", "PLAYER",
+        "POINT", "POLICE", "POLICY", "POLITICAL", "POLITICS", "POOR", "POPULAR", "POPULATION",
+        "POSITION", "POSITIVE", "POSSIBLE", "POWER", "PRACTICE", "PREPARE", "PRESENT", "PRESIDENT",
+        "PRESSURE", "PRETTY", "PREVENT", "PRICE", "PRIVATE", "PROBABLY", "PROBLEM", "PROCESS",
+        "PRODUCE", "PRODUCT", "PRODUCTION", "PROFESSIONAL", "PROFESSOR", "PROGRAM", "PROJECT",
+        "PROPERTY", "PROTECT", "PROVE", "PROVIDE", "PUBLIC", "PULL", "PURPOSE", "PUSH", "PUT",
+        "QUALITY", "QUESTION", "QUICKLY", "QUITE",
+        "RACE", "RADIO", "RAISE", "RANGE", "RATE", "RATHER", "REACH", "READ", "READY", "REAL",
+        "REALITY", "REALIZE", "REALLY", "REASON", "RECEIVE", "RECENT", "RECENTLY", "RECOGNIZE",
+        "RECORD", "RED", "REDUCE", "REFLECT", "REGION", "RELATE", "RELATIONSHIP", "RELIGIOUS",
+        "REMAIN", "REMEMBER", "REMOVE", "REPORT", "REPRESENT", "REPUBLICAN", "REQUIRE", "RESEARCH",
+        "RESOURCE", "RESPOND", "RESPONSE", "RESPONSIBILITY", "REST", "RESULT", "RETURN", "REVEAL",
+        "RICH", "RIGHT", "RISE", "RISK", "ROAD", "ROCK", "ROLE", "ROOM", "RULE", "RUN",
+        "SAFE", "SAME", "SAVE", "SAY", "SCENE", "SCHOOL", "SCIENCE", "SCIENTIST", "SCORE", "SEA",
+        "SEASON", "SEAT", "SECOND", "SECTION", "SECURITY", "SEE", "SEEK", "SEEM", "SELL", "SEND",
+        "SENIOR", "SENSE", "SERIES", "SERIOUS", "SERVE", "SERVICE", "SET", "SEVEN", "SEVERAL",
+        "SEX", "SEXUAL", "SHAKE", "SHARE", "SHE", "SHOOT", "SHORT", "SHOT", "SHOULD", "SHOULDER",
+        "SHOW", "SIDE", "SIGN", "SIGNIFICANT", "SIMILAR", "SIMPLE", "SIMPLY", "SINCE", "SING",
+        "SINGLE", "SISTER", "SIT", "SITE", "SITUATION", "SIX", "SIZE", "SKILL", "SKIN", "SMALL",
+        "SMILE", "SOCIAL", "SOCIETY", "SOLDIER", "SOME", "SOMEBODY", "SOMEONE", "SOMETHING",
+        "SOMETIMES", "SON", "SONG", "SOON", "SORT", "SOUND", "SOURCE", "SOUTH", "SOUTHERN", "SPACE",
+        "SPEAK", "SPECIAL", "SPECIFIC", "SPEECH", "SPEND", "SPORT", "SPRING", "STAFF", "STAGE",
+        "STAND", "STANDARD", "STAR", "START", "STATE", "STATEMENT", "STATION", "STAY", "STEP",
+        "STILL", "STOCK", "STOP", "STORE", "STORY", "STRATEGY", "STREET", "STRONG", "STRUCTURE",
+        "STUDENT", "STUDY", "STUFF", "STYLE", "SUBJECT", "SUCCESS", "SUCCESSFUL", "SUCH",
+        "SUDDENLY", "SUFFER", "SUGGEST", "SUMMER", "SUPPORT", "SURE", "SURFACE", "SYSTEM",
+        "TABLE", "TAKE", "TALK", "TASK", "TAX", "TEACH", "TEACHER", "TEAM", "TECHNOLOGY",
+        "TELEVISION", "TELL", "TEN", "TEND", "TERM", "TEST", "THAN", "THANK", "THAT", "THE",
+        "THEIR", "THEM", "THEMSELVES", "THEN", "THEORY", "THERE", "THESE", "THEY", "THING", "THINK",
+        "THIRD", "THIS", "THOSE", "THOUGH", "THOUGHT", "THOUSAND", "THREAT", "THREE", "THROUGH",
+        "THROUGHOUT", "THROW", "THUS", "TIME", "TODAY", "TOGETHER", "TONIGHT", "TOO", "TOP",
+        "TOTAL", "TOUGH", "TOWARD", "TOWN", "TRADE", "TRADITIONAL", "TRAINING", "TRAVEL", "TREAT",
+        "TREATMENT", "TREE", "TRIAL", "TRIP",
+        "TROUBLE", "TRUE", "TRUTH", "TRY", "TURN", "TWO", "TYPE",
+        "UNDER", "UNDERSTAND", "UNIT", "UNTIL", "UPON", "USE", "USUALLY",
+        "VALUE", "VARIOUS", "VERY", "VICTIM", "VIEW", "VIOLENCE", "VISIT", "VOICE", "VOTE",
+        "WAIT", "WALK", "WALL", "WANT", "WAR", "WATCH", "WATER", "WAY", "WEAPON", "WEAR", "WEEK",
+        "WEIGHT", "WELL", "WEST", "WESTERN", "WHAT", "WHATEVER", "WHEN", "WHERE", "WHETHER",
+        "WHICH", "WHILE", "WHITE", "WHO", "WHOLE", "WHOM", "WHOSE", "WHY", "WIDE", "WIFE", "WILL",
+        "WIN", "WIND", "WINDOW", "WISH", "WITH", "WITHIN", "WITHOUT", "WOMAN", "WONDER", "WORD",
+        "WORK", "WORKER", "WORLD", "WORRY", "WOULD", "WRITE", "WRITER", "WRONG",
+        "YARD", "YEAH", "YEAR", "YES", "YET", "YOU", "YOUNG", "YOUR", "YOURSELF"};
+
+    static String[] getWord() {
+        return list;
+    }
 }
