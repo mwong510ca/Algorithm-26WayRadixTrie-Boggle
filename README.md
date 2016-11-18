@@ -9,7 +9,7 @@ There are 3 dictionaries can be choose from:
 * [OSPD] - Official Scrabble Player Dictionary (US)  
 * [EOWL] - English Open Word List (UK)  
 * [SOWPODS] - English-language tournament Scrabble  
-* local dictionary file (text based, one word per line) - Player may use their choice of dictionary file in txt format.
+* local dictionary file - Text based, one word per line.
 
 [System requirements and installation]  
 
