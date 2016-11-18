@@ -5,6 +5,8 @@
 
 My Boggle game support 4x4, 5x5 and 6x6 boards with double letters (An, Er, He, In, Qu and Th) and a blank dice.  It will generate the random board or custom setup by the player.  
 
+It can play with mouse click or type with keyboard.
+
 There are 3 dictionaries can be choose from: 
 * [OSPD] - Official Scrabble Player Dictionary (US)  
 * [EOWL] - English Open Word List (UK)  
