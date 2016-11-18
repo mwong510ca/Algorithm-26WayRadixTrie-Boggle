@@ -8,8 +8,8 @@ My Boggle game support 4x4, 5x5 and 6x6 boards with double letters (An, Er, He, 
 There are 3 dictionaries can be choose from: 
 * [OSPD] - Official Scrabble Player Dictionary (US)  
 * [EOWL] - English Open Word List (UK)  
-* [SOWPODS] - English-language tournament Scrabble 
-Player may use their choice of dictionary file in txt format.
+* [SOWPODS] - English-language tournament Scrabble  
+* local dictionary file (text based, one word per line) - Player may use their choice of dictionary file in txt format.
 
 [System requirements and installation]  
 
