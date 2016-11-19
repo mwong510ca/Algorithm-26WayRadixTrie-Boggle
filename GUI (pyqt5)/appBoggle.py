@@ -315,8 +315,10 @@ class GameBoggle(QMainWindow, MainWindow):
         if self.game_thread.isRunning():
             self.game_thread.stop()
             self.game_terminate()
+            self.gameIntro.setText("Boggle board has changed.  Try a new game.")
         self.gameTime.setText("Time:")
         self.gameScores.setText("Scores:")
+        self.playerInput.setText("")
         self.game_active = False
 
     def game_start(self):
@@ -327,7 +329,7 @@ class GameBoggle(QMainWindow, MainWindow):
         self.game_load()
 
     def game_load(self):
-        self.gameIntro.setText("Type the word or click the first and last letter.")
+        self.gameIntro.setText("Type the word or click 1st and last letter.")
         self.actionCheatSheet.setEnabled(True)
         self.playerInput.setEnabled(True)
         if self.list_window:
@@ -915,7 +917,7 @@ class GameBoggle(QMainWindow, MainWindow):
     
 if __name__ == "__main__":
     host = '127.0.0.1'
-    port_number = 25334
+    port_number = 25333
     while port_number < 25335:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', 0))
@@ -927,7 +929,7 @@ if __name__ == "__main__":
     except:
         sys.exit()
 
-    gateway = JavaGateway(GatewayClient(address=host, port=port_number))    
+    gateway = JavaGateway(GatewayClient(address=host, port=port_number))  
     app = QApplication(sys.argv)
     window = GameBoggle(gateway)
     window.show()

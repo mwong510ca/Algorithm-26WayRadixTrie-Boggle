@@ -20,7 +20,6 @@ class BoardWidget(QWidget, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.default_setting()
-        print("correct")
 
     def default_setting(self):
         self.letters_set = [[self.letter00, self.letter01, self.letter02, self.letter03, self.letter04, self.letter05],
