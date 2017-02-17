@@ -3,15 +3,13 @@
 
 import sys
 import os
-import math
 import time
 import subprocess
 import socket
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFrame, QMessageBox, \
-        QWidget, QFileDialog, QInputDialog
-from PyQt5.QtCore import QDir, QFile, QObject, pyqtSignal, QThread, QRect
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtCore import QDir, QFile
 from PyQt5.QtGui import QPixmap
 from PIL import Image
 
@@ -26,6 +24,7 @@ from py4j.java_gateway import GatewayClient
 IMG_FOLDER_NAME = "images"
 DICE_4_SIZE = 256
 LINK_SIZE = 16
+
 
 class GameBoggle(QMainWindow, MainWindow):
     closing = QtCore.pyqtSignal()
@@ -73,7 +72,7 @@ class GameBoggle(QMainWindow, MainWindow):
         self.letter53.clickedLabel.connect(lambda: self.clicked_letter(5, 3))
         self.letter54.clickedLabel.connect(lambda: self.clicked_letter(5, 4))
         self.letter55.clickedLabel.connect(lambda: self.clicked_letter(5, 5))
-        
+
         self.letter00.enteredLabel.connect(lambda: self.linked_letter(0, 0))
         self.letter01.enteredLabel.connect(lambda: self.linked_letter(0, 1))
         self.letter02.enteredLabel.connect(lambda: self.linked_letter(0, 2))
@@ -110,131 +109,132 @@ class GameBoggle(QMainWindow, MainWindow):
         self.letter53.enteredLabel.connect(lambda: self.linked_letter(5, 3))
         self.letter54.enteredLabel.connect(lambda: self.linked_letter(5, 4))
         self.letter55.enteredLabel.connect(lambda: self.linked_letter(5, 5))
-        
+
         self.dice_faces = [[self.letter00, self.letter01, self.letter02, self.letter03, self.letter04, self.letter05],
-                [self.letter10, self.letter11, self.letter12, self.letter13, self.letter14, self.letter15],
-                [self.letter20, self.letter21, self.letter22, self.letter23, self.letter24, self.letter25],
-                [self.letter30, self.letter31, self.letter32, self.letter33, self.letter34, self.letter35],
-                [self.letter40, self.letter41, self.letter42, self.letter43, self.letter44, self.letter45],
-                [self.letter50, self.letter51, self.letter52, self.letter53, self.letter54, self.letter55]]
+                           [self.letter10, self.letter11, self.letter12, self.letter13, self.letter14, self.letter15],
+                           [self.letter20, self.letter21, self.letter22, self.letter23, self.letter24, self.letter25],
+                           [self.letter30, self.letter31, self.letter32, self.letter33, self.letter34, self.letter35],
+                           [self.letter40, self.letter41, self.letter42, self.letter43, self.letter44, self.letter45],
+                           [self.letter50, self.letter51, self.letter52, self.letter53, self.letter54, self.letter55]]
 
         self.dice_linkh = [[self.linkh00, self.linkh01, self.linkh02, self.linkh03, self.linkh04],
-                [self.linkh10, self.linkh11, self.linkh12, self.linkh13, self.linkh14],
-                [self.linkh20, self.linkh21, self.linkh22, self.linkh23, self.linkh24],
-                [self.linkh30, self.linkh31, self.linkh32, self.linkh33, self.linkh34],
-                [self.linkh40, self.linkh41, self.linkh42, self.linkh43, self.linkh44],
-                [self.linkh50, self.linkh51, self.linkh52, self.linkh53, self.linkh54]]
+                           [self.linkh10, self.linkh11, self.linkh12, self.linkh13, self.linkh14],
+                           [self.linkh20, self.linkh21, self.linkh22, self.linkh23, self.linkh24],
+                           [self.linkh30, self.linkh31, self.linkh32, self.linkh33, self.linkh34],
+                           [self.linkh40, self.linkh41, self.linkh42, self.linkh43, self.linkh44],
+                           [self.linkh50, self.linkh51, self.linkh52, self.linkh53, self.linkh54]]
 
         self.dice_linkv = [[self.linkv00, self.linkv01, self.linkv02, self.linkv03, self.linkv04, self.linkv05],
-                [self.linkv10, self.linkv11, self.linkv12, self.linkv13, self.linkv14, self.linkv15],
-                [self.linkv20, self.linkv21, self.linkv22, self.linkv23, self.linkv24, self.linkv25],
-                [self.linkv30, self.linkv31, self.linkv32, self.linkv33, self.linkv34, self.linkv35],
-                [self.linkv40, self.linkv41, self.linkv42, self.linkv43, self.linkv44, self.linkv45]]
+                           [self.linkv10, self.linkv11, self.linkv12, self.linkv13, self.linkv14, self.linkv15],
+                           [self.linkv20, self.linkv21, self.linkv22, self.linkv23, self.linkv24, self.linkv25],
+                           [self.linkv30, self.linkv31, self.linkv32, self.linkv33, self.linkv34, self.linkv35],
+                           [self.linkv40, self.linkv41, self.linkv42, self.linkv43, self.linkv44, self.linkv45]]
 
         self.dice_linkx = [[self.linkx00, self.linkx01, self.linkx02, self.linkx03, self.linkx04],
-                [self.linkx10, self.linkx11, self.linkx12, self.linkx13, self.linkx14],
-                [self.linkx20, self.linkx21, self.linkx22, self.linkx23, self.linkx24],
-                [self.linkx30, self.linkx31, self.linkx32, self.linkx33, self.linkx34],
-                [self.linkx40, self.linkx41, self.linkx42, self.linkx43, self.linkx44]]
-        
-        self.face_encode = {"A": 1, "B" :  2, "C" :  3, "D" :  4, "E" :  5, "F" :  6, 
-                "G" :  7, "H" :  8, "I" :  9, "J" : 10, "K" : 11, "L" : 12, "M" : 13, 
-                "N" : 14, "O" : 15, "P" : 16, "QU": 17, "R" : 18, "S" : 19, "T" : 20, 
-                "U" : 21, "V" : 22, "W" : 23, "X" : 24, "Y" : 25, "Z" : 26, 
-                "AN":101, "ER":105, "HE":108, "IN":109, "TH":120}
+                           [self.linkx10, self.linkx11, self.linkx12, self.linkx13, self.linkx14],
+                           [self.linkx20, self.linkx21, self.linkx22, self.linkx23, self.linkx24],
+                           [self.linkx30, self.linkx31, self.linkx32, self.linkx33, self.linkx34],
+                           [self.linkx40, self.linkx41, self.linkx42, self.linkx43, self.linkx44]]
 
-        self.face_decode = {1: "A",  2 : "B",  3 : "C",  4 : "D",  5 : "E",  6 : "F", 
-                7  : "G", 8  : "H",  9 : "I", 10 : "J", 11 : "K", 12 : "L", 13 : "M", 
-                14 : "N", 15 : "O", 16 : "P", 17 :"QU", 18 : "R", 19 : "S", 20 : "T", 
-                21 : "U", 22 : "V", 23 : "W", 24 : "X", 25 : "Y", 26 : "Z", 
-                101:"AN", 105:"ER", 108:"HE", 109:"IN", 120:"TH"}
+        self.face_encode = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6,
+                            "G": 7, "H": 8, "I": 9, "J": 10, "K": 11, "L": 12, "M": 13,
+                            "N": 14, "O": 15, "P": 16, "QU": 17, "R": 18, "S": 19, "T": 20,
+                            "U": 21, "V": 22, "W": 23, "X": 24, "Y": 25, "Z": 26,
+                            "AN": 101, "ER": 105, "HE": 108, "IN": 109, "TH": 120}
 
-        self.score_table = {3 : 1, 4 : 1, 5 : 2, 6 : 3, 7 : 5}
+        self.face_decode = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F",
+                            7: "G", 8: "H", 9: "I", 10: "J", 11: "K", 12: "L", 13: "M",
+                            14: "N", 15: "O", 16: "P", 17: "QU", 18: "R", 19: "S", 20: "T",
+                            21: "U", 22: "V", 23: "W", 24: "X", 25: "Y", 26: "Z",
+                            101: "AN", 105: "ER", 108: "HE", 109: "IN", 120: "TH"}
+
+        self.score_table = {3: 1, 4: 1, 5: 2, 6: 3, 7: 5}
 
         self.load_images()
-        
+
         # size, generate function, game time, score function, min length
-        self._board_types = {0 : [4, "Boggle (1992)", self._gateway.getNew1992Board, 3, self.score_3, 3],
-           1 : [4, "Classic Boggle", self._gateway.getClassicBoard, 3, self.score_3, 3], 
-           2 : [5, "Boggle Deluxe", self._gateway.getDeluxeBoard, 3, self.score_3, 3],
-           3 : [5, "Big Boggle (1979)", self._gateway.getBigBoard, 3, self.score_3, 3],
-           4 : [6, "Super Big Boggle", self._gateway.getSuperBigBoard, 4, self.score_4, 4]
-         }
+        self._board_types = {0: [4, "Boggle (1992)", self._gateway.getNew1992Board, 3, self.score_3, 3],
+                             1: [4, "Classic Boggle", self._gateway.getClassicBoard, 3, self.score_3, 3],
+                             2: [5, "Boggle Deluxe", self._gateway.getDeluxeBoard, 3, self.score_3, 3],
+                             3: [5, "Big Boggle (1979)", self._gateway.getBigBoard, 3, self.score_3, 3],
+                             4: [6, "Super Big Boggle", self._gateway.getSuperBigBoard, 4, self.score_4, 4]
+                             }
 
         self.trace_history = []
         self.game_thread = Timer()
         self.game_thread.stop()
         self.list_window = 0
-        self.boggle_setting(1) 
+        self.boggle_setting(1)
         self.board_window = BoardWidget()
         self.board_window.boardSize.connect(self.custom_size)
         self.board_window.letterAdded.connect(self.custom_letter_append)
         self.board_window.boardReady.connect(self.custom_ready)
-        
-        self.gameNew.clicked.connect(self.game_start) 
-        self.game_thread.currentTime.connect(self.gameTime.setText) 
-        self.game_thread.timesUp.connect(self.game_terminate) 
-        self.playerInput.textChanged.connect(self.input_changed)
-        self.playerInput.editingFinished.connect(lambda: self.input_submitted(self.playerInput))
-        
-        self.actionExit.triggered.connect(self.custom_quit)
-        self.actionNew_4x4.triggered.connect(lambda: self.boggle_setting(0)) 
-        self.actionClassic_4x4.triggered.connect(lambda: self.boggle_setting(1)) 
-        self.actionDeluex_5x5.triggered.connect(lambda: self.boggle_setting(2)) 
-        self.actionBig_5x5_1979.triggered.connect(lambda: self.boggle_setting(3)) 
-        self.actionSuperBig_6x6.triggered.connect(lambda: self.boggle_setting(4)) 
-        self.actionCustomBoard.triggered.connect(self.custom_board) 
 
-        self.actionOSPD_US.triggered.connect(self.dictionary_ospd) 
-        self.actionEOWL_UK.triggered.connect(self.dictionary_eowl) 
-        self.actionSOWPODS.triggered.connect(self.dictionary_sowpods) 
-        self.actionCustomDictionary.triggered.connect(self.dictionary_custom) 
+        self.gameNew.clicked.connect(self.game_start)
+        self.game_thread.currentTime.connect(self.gameTime.setText)
+        self.game_thread.timesUp.connect(self.game_terminate)
+        self.playerInput.textChanged.connect(self.input_changed)
+        self.playerInput.editingFinished.connect(self.input_submitted)
+
+        self.actionAboutBoggle.triggered.connect(self.about_boggle)
+        self.actionAboutAuthor.triggered.connect(self.about_author)
+        self.actionExit.triggered.connect(self.custom_quit)
+        self.actionNew_4x4.triggered.connect(lambda: self.boggle_setting(0))
+        self.actionClassic_4x4.triggered.connect(lambda: self.boggle_setting(1))
+        self.actionDeluex_5x5.triggered.connect(lambda: self.boggle_setting(2))
+        self.actionBig_5x5_1979.triggered.connect(lambda: self.boggle_setting(3))
+        self.actionSuperBig_6x6.triggered.connect(lambda: self.boggle_setting(4))
+        self.actionCustomBoard.triggered.connect(self.custom_board)
+
+        self.actionOSPD_US.triggered.connect(self.dictionary_ospd)
+        self.actionEOWL_UK.triggered.connect(self.dictionary_eowl)
+        self.actionSOWPODS.triggered.connect(self.dictionary_sowpods)
+        self.actionCustomDictionary.triggered.connect(self.dictionary_custom)
         self.actionInstructions.triggered.connect(self.popup_instructions)
-        self.actionCheatSheet.triggered.connect(self.cheat_sheet)    
-        self.actionAboutAuthor.triggered.connect(self.about_author) 
+        self.actionCheatSheet.triggered.connect(self.cheat_sheet)
         
     def load_images(self):
         self.image_mode = True
         temp_map = {}
 
-        dir = QtCore.QDir()
-        if dir.exists(IMG_FOLDER_NAME):  
-            prefix = IMG_FOLDER_NAME + QDir.separator() + "letter_" 
+        dir_path = QtCore.QDir()
+        if dir_path.exists(IMG_FOLDER_NAME):
+            prefix = IMG_FOLDER_NAME + QDir.separator() + "letter_"
             for code, ch in self.face_decode.items():
-                filepath = prefix + ch + ".png"
-                if not QFile(filepath).exists():
+                file_path = prefix + ch + ".png"
+                if not QFile(file_path).exists():
                     self.image_mode = False
                     break
                 try:
-                    img = Image.open(filepath)
-                    temp_map[code] = filepath
+                    img = Image.open(file_path)
+                    temp_map[code] = file_path
                 except IOError:
                     self.image_mode = False
                     break
 
-                filepath = prefix + ch + "+.png"
-                if not QFile(filepath).exists():
+                file_path = prefix + ch + "+.png"
+                if not QFile(file_path).exists():
                     self.image_mode = False
                     break
                 try:
-                    img = Image.open(filepath)
-                    temp_map[code + 50] = filepath
+                    img = Image.open(file_path)
+                    temp_map[code + 50] = file_path
                 except IOError:
                     self.image_mode = False
                     break
 
-            extra = {0 : "letter_#", 200 : "space_right", 201 : "link_right", 
-                    300 : "space_down", 301 : "link_down", 400 : "space_cross",
-                    401 : "link_lowerR", 402 : "link_upperR", 403 : "link_cross"}        
+            extra = {0: "letter_#", 200: "space_right", 201: "link_right",
+                     300: "space_down", 301: "link_down", 400: "space_cross",
+                     401: "link_lowerR", 402: "link_upperR", 403: "link_cross"}
             prefix = IMG_FOLDER_NAME + QDir.separator()
             for code, filename in extra.items():
-                filepath = prefix + filename + ".png"
-                if not QFile(filepath).exists():
+                file_path = prefix + filename + ".png"
+                if not QFile(file_path).exists():
                     self.image_mode = False
                     break
                 try:
-                    img = Image.open(filepath)
-                    temp_map[code] = filepath
+                    img = Image.open(file_path)
+                    temp_map[code] = file_path
                 except IOError:
                     self.image_mode = False
                     break
@@ -243,7 +243,7 @@ class GameBoggle(QMainWindow, MainWindow):
         else:
             sys.exit()
 
-    def boggle_resize(self, boggle_size):        
+    def boggle_resize(self, boggle_size):
         self.actionCheatSheet.setEnabled(False)
         self.playerInput.setEnabled(False)
         self.gameIntro.setText("Change menu setting or start the game.")
@@ -267,7 +267,7 @@ class GameBoggle(QMainWindow, MainWindow):
                         self.dice_faces[row][col].setMaximumSize(size, 0)
                     else:
                         self.dice_faces[row][col].setMaximumSize(0, 0)
-        
+
         link_size = boggle_size - 1
         for col in range(5):
             if col < link_size:
@@ -276,7 +276,7 @@ class GameBoggle(QMainWindow, MainWindow):
             else:
                 self.dice_linkh[0][col].setMaximumSize(0, size)
                 self.dice_linkv[col][0].setMaximumSize(size, 0)
-        
+
         for row in range(5):
             if row < link_size:
                 for col in range(5):
@@ -370,8 +370,8 @@ class GameBoggle(QMainWindow, MainWindow):
             self.game_active = True
         else:
             QMessageBox.information(None, 'No word in this board. Game won\'t start.\n' +
-                'Please generate another board or change dictionary.', 
-                QMessageBox.Close, QMessageBox.Close)
+                                    'Please generate another board or change dictionary.',
+                                    QMessageBox.Close, QMessageBox.Close)
 
     def game_terminate(self):
         self.game_active = False
@@ -408,7 +408,7 @@ class GameBoggle(QMainWindow, MainWindow):
                             self.gameIntro.setText("You found all words.  Early termination.")
 
                     self.clear_history()
-                    self.playerInput.setText("") 
+                    self.playerInput.setText("")
                 else:
                     self.word_trace = True
                     self.trace_history = []
@@ -420,7 +420,7 @@ class GameBoggle(QMainWindow, MainWindow):
                         self.dice_faces[row][col].setPixmap(QPixmap(
                             self.image_list[self.face_code.get(idx) + 50]))
                         self.playerInput.setText(self.face_decode[self.face_code.get(idx)])
-                    
+
     def linked_letter(self, row, col):
         if self.game_active:
             idx = row * self.boggle_size + col
@@ -429,16 +429,16 @@ class GameBoggle(QMainWindow, MainWindow):
                     idx2 = self.trace_history[-1]
                     row2 = idx2 // self.boggle_size
                     col2 = idx2 % self.boggle_size
-                    if row >= row2 - 1 and row <= row2 + 1 and col >= col2 - 1 and col <= col2 + 1:    
+                    if row2 - 1 <= row <= row2 + 1 and col2 - 1 <= col <= col2 + 1:
                         self.trace_history.append(idx)
                         self.linked_image_change(idx, idx2)
                         word = ""
                         for idx in self.trace_history:
                             word = word + self.face_decode[self.face_code.get(idx)]
-                        self.playerInput.setText(word)     
+                        self.playerInput.setText(word)
                     else:
                         self.clear_history()
-                        self.playerInput.setText("") 
+                        self.playerInput.setText("")
                 else:
                     order = self.trace_history.index(idx)
                     while len(self.trace_history) > order + 1:
@@ -466,7 +466,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     word = ""
                     for idx in self.trace_history:
                         word = word + self.face_decode[self.face_code.get(idx)]
-                    self.playerInput.setText(word) 
+                    self.playerInput.setText(word)
 
     def linked_image_change(self, idx, idx2):
         row = idx // self.boggle_size
@@ -503,7 +503,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     self.link_history.append(idx)
                     self.link_history.append(401)
                     self.dice_linkx[row][col].setPixmap(QPixmap(
-                    self.image_list[403]))
+                        self.image_list[403]))
                 else:
                     self.link_cross_history.append(idx)
                     self.link_history.append(idx)
@@ -518,7 +518,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     self.dice_linkx[row2][col].setPixmap(QPixmap(
                         self.image_list[403]))
                 else:
-                    self.link_cross_history.append(link_idx)    
+                    self.link_cross_history.append(link_idx)
                     self.link_history.append(link_idx)
                     self.link_history.append(400)
                     self.dice_linkx[row2][col].setPixmap(QPixmap(
@@ -532,7 +532,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     self.dice_linkx[row][col2].setPixmap(QPixmap(
                         self.image_list[403]))
                 else:
-                    self.link_cross_history.append(link_idx)    
+                    self.link_cross_history.append(link_idx)
                     self.link_history.append(link_idx)
                     self.link_history.append(400)
                     self.dice_linkx[row][col2].setPixmap(QPixmap(
@@ -557,7 +557,7 @@ class GameBoggle(QMainWindow, MainWindow):
             col2 = idx2 % self.boggle_size
             self.dice_faces[row2][col2].setPixmap(QPixmap(
                 self.image_list[self.face_code.get(idx2)]))
-                        
+
         while len(self.link_history) > 0:
             code = self.link_history.pop()
             idx2 = self.link_history.pop()
@@ -604,7 +604,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     elif self.face_lookup.get("QU") and text.upper() == "Q":
                         self.playerInput.setText(text.upper())
                     elif self.face_lookup.get("TH") and text.upper() == "T":
-                        self.playerInput.setText(text.upper()) 
+                        self.playerInput.setText(text.upper())
             elif len(text) == 2:
                 if self.face_lookup.get(text.upper()):
                     idx = self.face_lookup[text.upper()][0]
@@ -612,7 +612,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     col = idx % self.boggle_size
                     self.clicked_letter(row, col)
                 else:
-                    self.clear_history
+                    self.clear_history()
                     self.playerInput.setText("")
                     self.word_trace = False
             return
@@ -626,18 +626,32 @@ class GameBoggle(QMainWindow, MainWindow):
             for idx in range(len(word)):
                 if not text[idx] == word[idx]:
                     print("Error " + text + " and " + word)
-                    sys.exit() 
-            self.extend_string(text[len(word) - len(text):].upper())
+                    sys.exit()
+            self.extend_string(text[len(word) - len(text):].upper(), False)
         elif len(text) < len(word):
-            idx = self.trace_history[-1]
-            if len(self.trace_history) > 1:
+            word2 = ""
+            for idx in range(len(self.trace_history) - 1):
+                word2 = word2 + self.face_decode[self.face_code.get(self.trace_history[idx])]
+            tailDoubleLetter = False
+            if len(word2) + 2 == len(word):
+                tailDoubleLetter = True
+        
+            if tailDoubleLetter:
+                firstLetter = word[-2]
+                idx = self.trace_history[-2]
+                row = idx // self.boggle_size
+                col = idx % self.boggle_size
+                self.linked_letter(row, col)
+                self.extend_string(firstLetter, True)
+            elif len(self.trace_history) > 1:
+                idx = self.trace_history[-1]
                 idx2 = self.trace_history[-2]
                 row = idx2 // self.boggle_size
                 col = idx2 % self.boggle_size
                 self.linked_letter(row, col)
                 if len(self.face_decode[self.face_code[idx]]) > 1:
                     self.playerInput.setText(word[:-1])
-                    self.extend_string(self.face_decode[self.face_code[idx]][0])
+                    self.extend_string(self.face_decode[self.face_code[idx]][0], False)
             elif len(self.trace_history) == 1 and len(text) == 1:
                 self.clear_history()
                 if self.face_lookup.get(text.upper()):
@@ -648,7 +662,7 @@ class GameBoggle(QMainWindow, MainWindow):
         else:
             print("ERROR 2 " + text + " " + word)
 
-    def extend_string(self, ch):
+    def extend_string(self, ch, isBackspace):
         if self.face_lookup.get(ch):
             idx2 = self.trace_history[-1]
             row2 = idx2 // self.boggle_size
@@ -658,7 +672,7 @@ class GameBoggle(QMainWindow, MainWindow):
                     continue
                 row = idx // self.boggle_size
                 col = idx % self.boggle_size
-                if row >= row2 - 1 and row <= row2 + 1 and col >= col2 - 1 and col <= col2 + 1:    
+                if row2 - 1 <= row <= row2 + 1 and col2 - 1 <= col <= col2 + 1:
                     self.linked_letter(row, col)
                     return
         word = ""
@@ -679,8 +693,8 @@ class GameBoggle(QMainWindow, MainWindow):
             self.trace_history = self.backup_trace
             self.word_trace = True
             self.refresh_linked_images()
-        else:
-            self.playerInput.setText("") 
+        elif not isBackspace:
+            self.playerInput.setText("")
 
     def matching(self, text):
         self.new_trace = []
@@ -689,7 +703,7 @@ class GameBoggle(QMainWindow, MainWindow):
         board_size = self.boggle_size * self.boggle_size
         for idx in range(board_size):
             self.visited.append(False)
-        
+
         length = len(text)
         for idx in range(board_size):
             if not self.face_code.get(idx):
@@ -710,57 +724,55 @@ class GameBoggle(QMainWindow, MainWindow):
                     self.found_word = True
                     return True
 
-                self.dfs(text, count, idx, board_size);
+                self.dfs(text, count, idx, board_size)
                 if self.found_word:
                     return True
                 self.new_trace.pop()
                 self.visited[idx] = False
         return False
 
-    def dfs(self, text, start, lastIdx, board_size):
-        if self.found_word:
-            retrun
-        lastRow = lastIdx // self.boggle_size
-        lastCol = lastIdx % self.boggle_size
-        for idx in range(board_size):
-            if not self.face_code.get(idx) or self.visited[idx]:
-                continue
-            row = idx // self.boggle_size
-            col = idx % self.boggle_size
-            if row >= lastRow - 1 and row <= lastRow + 1 and col >= lastCol - 1 and col <= lastCol + 1:
-                ch = self.face_decode[self.face_code[idx]]
-                count = start
-                matched = True
-                if not ch[0] == text[count]:
+    def dfs(self, text, start, last_idx, board_size):
+        if not self.found_word:
+            last_row = last_idx // self.boggle_size
+            last_col = last_idx % self.boggle_size
+            for idx in range(board_size):
+                if not self.face_code.get(idx) or self.visited[idx]:
                     continue
-                count += 1
-                if count == len(text):
-                    if len(ch) == 1:
-                        self.new_trace.append(idx)
-                        self.found_word = True
-                        return
-                    else:
-                        self.pending = True
-                        self.backup_trace = []
-                        for temp in self.new_trace:
-                            self.backup_trace.append(temp)
-                        return 
-                if len(ch) > 1:
-                    if not ch[1] == text[count]:
+                row = idx // self.boggle_size
+                col = idx % self.boggle_size
+                if last_row - 1 <= row <= last_row + 1 and last_col - 1 <= col <= last_col + 1:
+                    ch = self.face_decode[self.face_code[idx]]
+                    count = start
+                    if not ch[0] == text[count]:
                         continue
                     count += 1
                     if count == len(text):
-                        self.new_trace.append(idx)
-                        self.found_word = True
+                        if len(ch) == 1:
+                            self.new_trace.append(idx)
+                            self.found_word = True
+                            return
+                        else:
+                            self.pending = True
+                            self.backup_trace = []
+                            for temp in self.new_trace:
+                                self.backup_trace.append(temp)
+                            return
+                    if len(ch) > 1:
+                        if not ch[1] == text[count]:
+                            continue
+                        count += 1
+                        if count == len(text):
+                            self.new_trace.append(idx)
+                            self.found_word = True
+                            return
+                    self.visited[idx] = True
+                    self.new_trace.append(idx)
+                    self.dfs(text, count, idx, board_size)
+                    if self.found_word:
                         return
-                self.visited[idx] = True
-                self.new_trace.append(idx)
-                self.dfs(text, count, idx, board_size)
-                if self.found_word:
-                    return 
-                self.new_trace.pop()
-                self.visited[idx] = False
-                
+                    self.new_trace.pop()
+                    self.visited[idx] = False
+
     def refresh_linked_images(self):
         self.link_history = []
         self.link_cross_history = []
@@ -768,7 +780,7 @@ class GameBoggle(QMainWindow, MainWindow):
         row = idx // self.boggle_size
         col = idx % self.boggle_size
         self.dice_faces[row][col].setPixmap(QPixmap(
-            self.image_list[self.face_code.get(idx) + 50])) 
+            self.image_list[self.face_code.get(idx) + 50]))
         for nextIdx in range(1, len(self.trace_history)):
             idx2 = idx
             idx = self.trace_history[nextIdx]
@@ -778,7 +790,7 @@ class GameBoggle(QMainWindow, MainWindow):
                 self.image_list[self.face_code.get(idx) + 50]))
             self.linked_image_change(idx, idx2)
 
-    def input_submitted(self, input_object):
+    def input_submitted(self):
         if self.trace_history == []:
             return
         idx = self.trace_history[-1]
@@ -795,7 +807,7 @@ class GameBoggle(QMainWindow, MainWindow):
         if length < 8:
             return self.score_table[length]
         return 11
-        
+
     def score_4(self, word):
         if word not in self.boggle_words:
             return 0
@@ -806,12 +818,12 @@ class GameBoggle(QMainWindow, MainWindow):
             return self.score_table[length]
         return (length - 8) * 2 + 11
 
-    #---------------------------------------
+    # ---------------------------------------
 
     def custom_quit(self):
-        if QMessageBox.question(None, '', 'Are you sure to quit?', 
-                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No) == QMessageBox.Yes:
-                    QApplication.quit()
+        if QMessageBox.question(None, '', 'Are you sure to quit?',
+                                QMessageBox.Yes | QMessageBox.No, QMessageBox.No) == QMessageBox.Yes:
+            QApplication.quit()
 
     def custom_board(self):
         self.board_window.board_reset()
@@ -871,35 +883,43 @@ class GameBoggle(QMainWindow, MainWindow):
         if filename == "":
             return
         if not QFile.exists(filename):
-            QMessageBox.information(None, 'Error message', 
-                    'System error, unable to locate file.',
-                    QMessageBox.Close, QMessageBox.Close)
+            QMessageBox.information(None, 'Error message',
+                                    'System error, unable to locate file.',
+                                    QMessageBox.Close, QMessageBox.Close)
         else:
             self._gateway.setDictionaryCustom(filename)
             if self.game_thread.isRunning():
                 self.game_terminate()
                 self.game_load()
-        
+
     def cheat_sheet(self):
         words = self._gateway.getWordsList()
         self.list_window = ListingWindow(words)
 
     def popup_instructions(self):
-        QMessageBox.information(None, 'Boggle Game: How to play', 
-            '1. Start a new game. 4x4 and 5x5 for 3 minutes and 6x6 for 4 minutes.\n' + 
-            '2. Type the word or click the first and last letter.\n\n' + 
-            'Change your choice of Boggle size and dictionary from the menu bar.\n' + 
-            'Change the dictionary during the game will restart it automatically.\n'
-            'You may view the cheat sheet under Help menu.\n\n' + 
-            'Have fun!!!', 
-                QMessageBox.Close, QMessageBox.Close)
+        QMessageBox.information(None, 'Boggle Game: How to play',
+                                '1. Start a new game. 4x4 and 5x5 for 3 minutes and 6x6 for 4 minutes.\n' +
+                                '2. Type the word or click the first and last letter.\n\n' +
+                                'Change your choice of Boggle size and dictionary from the menu bar.\n' +
+                                'Change the dictionary during the game will restart it automatically.\n'
+                                'You may view the cheat sheet under Help menu.\n\n' +
+                                'Have fun!!!',
+                                QMessageBox.Close, QMessageBox.Close)
+
+    def about_boggle(self):
+        QMessageBox.information(None, 'About Boggle game', 'Boggle game based on actual Boggle games \n' +
+                                'of all 3 sizes: 4x4, 5x5, and 6x6.\n\n' +
+                                'You may use preset dictionaries or a custom dictionary.\n' + 
+								'Simply save all word in a text file and upload from setting.\n' +
+								'It\'s for a kid to play with all words at his/her grade level\n\n',
+                                QMessageBox.Close, QMessageBox.Close)
 
     def about_author(self):
-        QMessageBox.information(None, 'About Boggle game', 'Author: Meisze Wong\n' + 
-            'www.linkedin.com/pub/macy-wong/46/550/37b/\n\n' + 
-            'view source code:\nhttps://github.com/mwong510ca/BoggleGame', 
-                    QMessageBox.Close, QMessageBox.Close)
-    
+        QMessageBox.information(None, 'About Boggle game', 'Author: Meisze Wong\n' +
+                                'www.linkedin.com/pub/macy-wong/46/550/37b/\n\n' +
+                                'view source code:\nhttps://github.com/mwong510ca/BoggleGame',
+                                QMessageBox.Close, QMessageBox.Close)
+
     def closeEvent(self, event):
         if self.list_window:
             try:
@@ -914,7 +934,7 @@ class GameBoggle(QMainWindow, MainWindow):
                 pass
         self.closing.emit()
         super(GameBoggle, self).closeEvent(event)
-    
+
 if __name__ == "__main__":
     host = '127.0.0.1'
     port_number = 25333
@@ -922,18 +942,18 @@ if __name__ == "__main__":
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', 0))
         port_number = s.getsockname()[1]
-        s.close()   
+        s.close()
     try:
         subprocess.Popen(['java', '-jar', 'BoggleGateway.jar', str(port_number)])
         time.sleep(1)
     except:
         sys.exit()
 
-    gateway = JavaGateway(GatewayClient(address=host, port=port_number))  
+    gateway_server = JavaGateway(GatewayClient(address=host, port=port_number))
     app = QApplication(sys.argv)
-    window = GameBoggle(gateway)
+    window = GameBoggle(gateway_server)
     window.show()
     while app.exec_() > 0:
-        time.sleep(1)   
-    gateway.shutdown() 
+        time.sleep(1)
+    gateway_server.shutdown()
     sys.exit()
