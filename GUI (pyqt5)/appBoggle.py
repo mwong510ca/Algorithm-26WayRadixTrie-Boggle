@@ -348,6 +348,7 @@ class GameBoggle(QMainWindow, MainWindow):
         self.word_history = ""
         self.game_scores = 0
         self.gameScores.setText("Scores: " + str(self.game_scores) + " out of " + str(self.max_scores))
+        self.playerInput.setText("")
         self.wordListDisplay.setText("")
         idx = 0
         for row in range(self.boggle_size):
@@ -637,12 +638,22 @@ class GameBoggle(QMainWindow, MainWindow):
                 tailDoubleLetter = True
         
             if tailDoubleLetter:
-                firstLetter = word[-2]
-                idx = self.trace_history[-2]
-                row = idx // self.boggle_size
-                col = idx % self.boggle_size
-                self.linked_letter(row, col)
-                self.extend_string(firstLetter, True)
+                firstDouble = word[-2]
+                if len(self.trace_history) > 1:
+                    idx = self.trace_history[-2]
+                    row = idx // self.boggle_size
+                    col = idx % self.boggle_size
+                    self.linked_letter(row, col)
+                    self.extend_string(firstDouble, True)
+                else:
+                    self.clear_history()
+                    if self.face_lookup.get(firstDouble):
+                        idx = self.face_lookup[firstDouble][0]
+                        row = idx // self.boggle_size
+                        col = idx % self.boggle_size
+                        self.clicked_letter(row, col)
+                    else:
+                        self.playerInput.setText("")
             elif len(self.trace_history) > 1:
                 idx = self.trace_history[-1]
                 idx2 = self.trace_history[-2]
