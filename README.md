@@ -106,12 +106,12 @@ The dictionary is stored in trie structure written in java.  I take the advantag
     reference / student ratio:           0.47               0.47
     
 </pre>
-[Screenshots]: https://github.com/mwong510ca/Boggle_TrieDataStructure/blob/master/screenshots/README.md
+[Screenshots]: https://github.com/mwong510ca/Boggle_TrieDataStructure/tree/master/screenshots
 [Youtube demo]: https://youtu.be/KAHKMHzHqos
 [R-way trie]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
 [Radix (PATRICIA) trie]: https://en.wikipedia.org/wiki/Radix_tree
-[BoggleTrie26WayRadix.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleTrie26WayRadix.java%20-%20Details.md
-[BoggleDictionary.java]: https://github.com/mwong510ca/java_code/blob/master/Algorithm%20-%2026-way%20Radix%20Trie%20-%20Boggle%20/BoggleDictionary.java%20-%20Details.md
+[BoggleTrie26WayRadix.java]: https://github.com/mwong510ca/Boggle_TrieDataStructure/blob/master/BoggleTrie26WayRadix.java%20-%20Details.md
+[BoggleDictionary.java]: https://github.com/mwong510ca/Boggle_TrieDataStructure/blob/master/BoggleDictionary.java%20-%20Details.md
 [OSPD]: http://www.puzzlers.org/pub/wordlists/ospd.txt
 [EOWL]: http://dreamsteep.com/projects/the-english-open-word-list.html
 [SOWPODS]: https://www.wordgamedictionary.com/sowpods/
