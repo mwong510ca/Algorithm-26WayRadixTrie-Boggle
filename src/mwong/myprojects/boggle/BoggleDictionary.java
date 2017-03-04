@@ -15,7 +15,9 @@ import java.util.TreeSet;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public class BoggleDictionary {
     private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final int OFFSET = BoggleTrie26WayRadix.getOffset();

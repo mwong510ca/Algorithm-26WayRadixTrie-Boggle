@@ -6,7 +6,9 @@ package mwong.myprojects.boggle;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public interface TrieInterface<T> {
     /**
      * Returns the generic type T associated with the given key.

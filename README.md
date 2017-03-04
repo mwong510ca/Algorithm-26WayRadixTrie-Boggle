@@ -106,7 +106,7 @@ The dictionary is stored in trie structure written in java.  I take the advantag
     reference / student ratio:           0.47               0.47
     
 </pre>
-[Screenshots]: https://github.com/mwong510ca/BoggleGame/blob/master/screenshots/README.md
+[Screenshots]: https://github.com/mwong510ca/Boggle_TrieDataStructure/blob/master/screenshots/README.md
 [Youtube demo]: https://youtu.be/KAHKMHzHqos
 [R-way trie]: http://algs4.cs.princeton.edu/lectures/52Tries.pdf
 [Radix (PATRICIA) trie]: https://en.wikipedia.org/wiki/Radix_tree
@@ -115,5 +115,5 @@ The dictionary is stored in trie structure written in java.  I take the advantag
 [OSPD]: http://www.puzzlers.org/pub/wordlists/ospd.txt
 [EOWL]: http://dreamsteep.com/projects/the-english-open-word-list.html
 [SOWPODS]: https://www.wordgamedictionary.com/sowpods/
-[System requirements and installation]: https://github.com/mwong510ca/BoggleGame/tree/master/GUI%20(pyqt5)
+[System requirements and installation]: https://github.com/mwong510ca/Boggle_TrieDataStructure/tree/master/GUI%20(pyqt5)
 [py4j]: https://www.py4j.org

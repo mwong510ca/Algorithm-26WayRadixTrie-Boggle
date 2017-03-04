@@ -10,7 +10,9 @@ import java.util.Set;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public class GatewayServerBoggle {
     BoggleSolver solver;
     BoggleBoard board;

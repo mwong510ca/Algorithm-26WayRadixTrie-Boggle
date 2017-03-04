@@ -10,7 +10,9 @@ import java.util.ArrayList;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public class BoggleTrie26WayRadix implements TrieInterface<String> {
     private static final int OFFSET = 'A';
     private static final int IDX_Q = 'Q' - OFFSET;

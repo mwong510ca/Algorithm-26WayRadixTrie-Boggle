@@ -8,7 +8,9 @@ package mwong.myprojects.boggle;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public class BoggleDictionaryDefault {
     private static String[] list = {"ABILITY", "ABLE", "ABOUT", "ABOVE", "ACCEPT", "ACCORDING",
         "ACCOUNT", "ACROSS", "ACT", "ACTION", "ACTIVITY", "ACTUALLY", "ADD", "ADDRESS",

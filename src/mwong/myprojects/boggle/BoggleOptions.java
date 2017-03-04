@@ -10,7 +10,9 @@ package mwong.myprojects.boggle;
  *
  * @author Meisze Wong
  *         www.linkedin.com/pub/macy-wong/46/550/37b/
+ *         www.github.com/mwong510ca/Boggle_TrieDataStructure
  */
+
 public enum BoggleOptions {
     CLASSIC("Classic", 4, 3,
             new String [] {

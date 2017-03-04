@@ -1,3 +1,9 @@
+"""
+" author Meisze Wong
+"        www.linkedin.com/pub/macy-wong/46/550/37b/
+"        github.com/mwong510ca/Boggle_TrieDataStructure
+"""
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'listWindow.ui'
@@ -6,8 +12,9 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QWidget
+
 
 class Ui_MainWindow(QWidget):
     def __init__(self, words):

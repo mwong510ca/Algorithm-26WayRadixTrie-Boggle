@@ -1,3 +1,9 @@
+"""
+" author Meisze Wong
+"        www.linkedin.com/pub/macy-wong/46/550/37b/
+"        github.com/mwong510ca/Boggle_TrieDataStructure
+"""
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'main.ui'
@@ -800,6 +806,10 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.actionAboutBoggle = QtWidgets.QAction(MainWindow)
+        self.actionAboutBoggle.setObjectName("actionAboutBoggle")
+        self.actionAboutAuthor = QtWidgets.QAction(MainWindow)
+        self.actionAboutAuthor.setObjectName("actionAboutAuthor")
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
 
@@ -807,8 +817,8 @@ class Ui_MainWindow(object):
         self.actionNew_4x4.setObjectName("actionNew_4x4")
         self.actionClassic_4x4 = QtWidgets.QAction(MainWindow)
         self.actionClassic_4x4.setObjectName("actionClassic_4x4")
-        self.actionDeluex_5x5 = QtWidgets.QAction(MainWindow)
-        self.actionDeluex_5x5.setObjectName("actionDeluex_5x5")
+        self.actionDeluxe_5x5 = QtWidgets.QAction(MainWindow)
+        self.actionDeluxe_5x5.setObjectName("actionDeluxe_5x5")
         self.actionBig_5x5_1979 = QtWidgets.QAction(MainWindow)
         self.actionBig_5x5_1979.setObjectName("actionBig_5x5_1979")
         self.actionSuperBig_6x6 = QtWidgets.QAction(MainWindow)
@@ -829,13 +839,13 @@ class Ui_MainWindow(object):
         self.actionInstructions.setObjectName("actionInstructions")
         self.actionCheatSheet = QtWidgets.QAction(MainWindow)
         self.actionCheatSheet.setObjectName("actionCheatSheet")
-        self.actionAboutAuthor = QtWidgets.QAction(MainWindow)
-        self.actionAboutAuthor.setObjectName("actionAboutAuthor")
         
+        self.menuFile.addAction(self.actionAboutBoggle)
+        self.menuFile.addAction(self.actionAboutAuthor)
         self.menuFile.addAction(self.actionExit)
         self.menuBoggleBoard.addAction(self.actionNew_4x4)
         self.menuBoggleBoard.addAction(self.actionClassic_4x4)
-        self.menuBoggleBoard.addAction(self.actionDeluex_5x5)
+        self.menuBoggleBoard.addAction(self.actionDeluxe_5x5)
         self.menuBoggleBoard.addAction(self.actionBig_5x5_1979)
         self.menuBoggleBoard.addAction(self.actionSuperBig_6x6)
         self.menuBoggleBoard.addAction(self.actionCustomBoard)
@@ -845,7 +855,6 @@ class Ui_MainWindow(object):
         self.menuDictionary.addAction(self.actionCustomDictionary)
         self.menuHelp.addAction(self.actionInstructions)
         self.menuHelp.addAction(self.actionCheatSheet)
-        self.menuHelp.addAction(self.actionAboutAuthor)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuBoggleBoard.menuAction())
         self.menubar.addAction(self.menuDictionary.menuAction())
@@ -861,14 +870,16 @@ class Ui_MainWindow(object):
         self.gameNew.setText(_translate("MainWindow", "New Game"))
         self.gameTime.setText(_translate("MainWindow", "Time"))
         self.gameScores.setText(_translate("MainWindow", "Scores:"))
-        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuFile.setTitle(_translate("MainWindow", "Boggle Game"))
         self.menuBoggleBoard.setTitle(_translate("MainWindow", "Boggle Board"))
         self.menuDictionary.setTitle(_translate("MainWindow", "Dictionary"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
+        self.actionAboutBoggle.setText(_translate("MainWindow", "About Boggle"))
+        self.actionAboutAuthor.setText(_translate("MainWindow", "About Author"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionNew_4x4.setText(_translate("MainWindow", "4x4 New"))
         self.actionClassic_4x4.setText(_translate("MainWindow", "4x4 Classic"))
-        self.actionDeluex_5x5.setText(_translate("MainWindow", "5x5 Deluxe"))
+        self.actionDeluxe_5x5.setText(_translate("MainWindow", "5x5 Deluxe"))
         self.actionBig_5x5_1979.setText(_translate("MainWindow", "5x5 Classic Big"))
         self.actionSuperBig_6x6.setText(_translate("MainWindow", "6x6 Super Big"))
         self.actionCustomBoard.setText(_translate("MainWindow", "Custom Board"))
@@ -878,5 +889,4 @@ class Ui_MainWindow(object):
         self.actionCustomDictionary.setText(_translate("MainWindow", "User Select Dictionary File"))
         self.actionCheatSheet.setText(_translate("MainWindow", "View Cheat Sheet"))
         self.actionInstructions.setText(_translate("MainWindow", "Instructions"))
-        self.actionAboutAuthor.setText(_translate("MainWindow", "About Author"))
         

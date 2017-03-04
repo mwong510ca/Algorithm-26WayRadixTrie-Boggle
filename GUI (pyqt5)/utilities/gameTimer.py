@@ -1,6 +1,15 @@
+"""
+" Timer is the timer object for appBoggle.  It is a separate QThread
+" to send the remaining time of the game to the main application.
+"
+" author Meisze Wong
+"        www.linkedin.com/pub/macy-wong/46/550/37b/
+"        github.com/mwong510ca/Boggle_TrieDataStructure
+"""
 
 import time
 from PyQt5.QtCore import pyqtSignal, QThread
+
 
 class Timer(QThread):
     currentTime = pyqtSignal(str)
@@ -15,7 +24,6 @@ class Timer(QThread):
         if not self._isRunning:
             self._isRunning = True
 
-        remaining = self._timeRemaining
         while self._isRunning and self._timeRemaining > 0:
             self.currentTime.emit("Time: " + str(self._timeRemaining/10) + "s")
             time.sleep(0.1)
@@ -33,4 +41,3 @@ class Timer(QThread):
 
     def stop(self):
         self._isRunning = False
-        
