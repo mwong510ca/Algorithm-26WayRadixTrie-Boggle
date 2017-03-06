@@ -3,7 +3,7 @@
 (../screenshots/gui1.png)  
 
 ### How to Install
-Requirement :  
+System Requirement :  
 * [Java Virtual Machine version 8]: (Most of the machines already have it)  
 * [Python 3.5]
 * [py4j] for Python
@@ -12,7 +12,8 @@ Requirement :
   (OS X) From terminal: pip3 install PIL
 * [Qt] 5.6 or 5.7 (may not work on older versions)
 
-Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components - jar files, images, dictionary text files, etc)  
+Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components - jar files, images, dictionary text files, etc)   
+
 Start from Terminal: python3 appBoggle.py
 
 ### How to Play  
