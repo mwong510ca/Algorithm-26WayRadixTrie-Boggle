@@ -24,7 +24,7 @@ public class BoggleDictionary {
     private static final int IDX_Q = BoggleTrie26WayRadix.getIdxQ();
     private static final String SEPARATOR = System.getProperty("file.separator");
     private static String directory = "dictionary";
-    private static final DictionaryOptions defaultDictionary = DictionaryOptions.EOWL;
+    private static final DictionaryOptions defaultDictionary = DictionaryOptions.OSPD;
 
     private byte[] radix;
     private byte[] radixLength;
@@ -44,7 +44,7 @@ public class BoggleDictionary {
      *  Initializes the BoggleDictionary object using default dictionary.
      */
     public BoggleDictionary() {
-        this(defaultDictionary);
+    	this(defaultDictionary);
     }
 
     /**
@@ -54,7 +54,8 @@ public class BoggleDictionary {
      */
     public BoggleDictionary(DictionaryOptions option) {
         String filepath = directory + SEPARATOR + option.getFilename();
-        loadDictionary(filepath);
+        String[] dict = readDictionary(filepath);
+        loadDictionary(dict);
     }
 
     /**
@@ -63,7 +64,8 @@ public class BoggleDictionary {
      * @param filepath the given String of file path
      */
     public BoggleDictionary(String filepath) {
-        loadDictionary(filepath);
+    	String[] dict = readDictionary(filepath);
+        loadDictionary(dict);
     }
 
     // load and sort all dictionary words in order
@@ -72,8 +74,8 @@ public class BoggleDictionary {
         marker = -1;
         File file = new File(filepath);
         if (!file.exists()) {
-            System.out.println(filepath + " not found.");
-            return null;
+            System.out.println(filepath + " not found, restore to default setting.");
+            return BoggleDictionaryDefault.getWord();
         }
 
         TreeSet<String> lines = new TreeSet<String>();
@@ -114,9 +116,9 @@ public class BoggleDictionary {
 
     // Read all words from the dictionary file and load into trie object,
     // retrieve trie components and reorder it and set a flag of each group of words.
-    private void loadDictionary(String filepath) {
-        String[] dict = readDictionary(filepath);
-        if (dict == null) {
+    private void loadDictionary(String[] dict) {
+        if (dict == null || dict.length < 50) {
+        	System.out.println("Too few words in dictionary, restore to defalut dictionary.");
             dict = BoggleDictionaryDefault.getWord();
         }
 

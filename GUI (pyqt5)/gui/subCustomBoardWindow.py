@@ -1,3 +1,9 @@
+"""
+" author Meisze Wong
+"        www.linkedin.com/pub/macy-wong/46/550/37b/
+"        github.com/mwong510ca/Boggle_TrieDataStructure
+"""
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'customBoggle.ui'

@@ -7,6 +7,8 @@
 "        github.com/mwong510ca/Boggle_TrieDataStructure
 """
 
+# !/usr/bin/env python3
+
 import time
 from PyQt5.QtCore import pyqtSignal, QThread
 

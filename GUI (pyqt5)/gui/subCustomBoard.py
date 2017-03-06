@@ -7,13 +7,7 @@
 "        github.com/mwong510ca/Boggle_TrieDataStructure
 """
 
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'customBoggle.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
+# !/usr/bin/env python3
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *

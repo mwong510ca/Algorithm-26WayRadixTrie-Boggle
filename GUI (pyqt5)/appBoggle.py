@@ -12,7 +12,6 @@
 "        github.com/mwong510ca/Boggle_TrieDataStructure
 """
 
-# -*- coding: utf-8 -*-
 # !/usr/bin/env python3
 
 import sys

@@ -29,7 +29,6 @@ public class GatewayServerBoggle {
     public GatewayServerBoggle() {
         dictionary = new BoggleDictionary();
         solver = new BoggleSolver(dictionary);
-        setDictionaryOspd();
         wordsList = "";
         words = new HashSet<String>();
         maxScores = 0;
@@ -276,6 +275,6 @@ public class GatewayServerBoggle {
         }
         GatewayServer gatewayServer = new GatewayServer(new GatewayServerBoggle(), port);
         gatewayServer.start();
-        System.out.println("Gateway server for boggle started using port ");
+        System.out.println("Gateway server for boggle started using port " + port);
     }
 }
