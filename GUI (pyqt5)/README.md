@@ -9,6 +9,7 @@ System Requirement :
 * [py4j] for Python
 * [PIL] or Pillow for Python 3.5
 * [Qt] 5.6 or 5.7 (may not work on older versions)
+* [PyQt5]
 
 Download and unzip the [BoggleGame.zip] file from my cloud drive.  (Include all components - jar files, images, dictionary text files, etc)   
 
@@ -28,4 +29,5 @@ Change the choice of dictionary from the menu bar, or use a local dictionary fil
 [py4j]: https://www.py4j.org/install.html
 [PIL]: https://wp.stolaf.edu/it/installing-pil-pillow-cimage-on-windows-and-mac/
 [Qt]: https://www.qt.io
+[PyQt5]: http://pyqt.sourceforge.net/Docs/PyQt5/installation.html
 [BoggleGame.zip]: https://my.pcloud.com/publink/show?code=XZ1gDqZmiHyJdEza9zPjia5Bskzym0pWLM7
