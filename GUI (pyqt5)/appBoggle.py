@@ -813,8 +813,7 @@ class GameBoggle(QMainWindow, MainWindow):
 
     # ---------------------------------------
 
-    @staticmethod
-    def custom_quit():
+    def custom_quit(self):
         if QMessageBox.question(None, '', 'Are you sure to quit?',
                                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No) == QMessageBox.Yes:
             QApplication.quit()
