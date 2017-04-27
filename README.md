@@ -82,7 +82,7 @@ The dictionary is stored in trie structure written in java.  I take the advantag
     last set        No              Yes        No    
 </pre>
 ---
-###Compare the memory and timing
+### Compare the memory and timing
 <pre>
     Computing memory of BoggleSolver     26-way trie   vs   (NEW) 26-way radix trie with reorder
     =================================================================================
