@@ -1,6 +1,5 @@
 ### Boggle Game
-![Boggle Game - start up screen]
-(../screenshots/gui1.png)  
+![Boggle Game - start up screen](../screenshots/gui1.png)  
 
 ### How to Install
 System Requirement :  
