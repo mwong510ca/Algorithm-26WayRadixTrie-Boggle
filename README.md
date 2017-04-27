@@ -1,7 +1,6 @@
 ### Boggle Game
 [Screenshots] / [Youtube demo]
-![Boggle Game - start up screen]
-(screenshots/gui1.png)  
+![Boggle Game - start up screen](screenshots/gui1.png)  
 
 My Boggle game support 4x4, 5x5 and 6x6 boards with double letters (An, Er, He, In, Qu and Th) and a blank dice.  It will generate the random board or custom setup by the player.  
 
