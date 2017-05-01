@@ -938,15 +938,17 @@ if __name__ == "__main__":
     try:
         p = subprocess.Popen(['java', '-jar', 'BoggleGateway.jar', str(port_number)])
         time.sleep(1)
+        gateway_server = JavaGateway(GatewayClient(address=host, port=port_number))
+        app = QApplication(sys.argv)
+        window = GameBoggle(gateway_server)
+        window.show()
+        while app.exec_() > 0:
+            time.sleep(1)
+        gateway_server.shutdown()
+        sys.exit()
     except:
+        gateway_server.shutdown()
         p.kill()
         sys.exit()
 
-    gateway_server = JavaGateway(GatewayClient(address=host, port=port_number))
-    app = QApplication(sys.argv)
-    window = GameBoggle(gateway_server)
-    window.show()
-    while app.exec_() > 0:
-        time.sleep(1)
-    gateway_server.shutdown()
-    sys.exit()
+
