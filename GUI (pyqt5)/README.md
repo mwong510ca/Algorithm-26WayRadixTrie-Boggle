@@ -29,4 +29,4 @@ Change the choice of dictionary from the menu bar, or use a local dictionary fil
 [PIL]: https://wp.stolaf.edu/it/installing-pil-pillow-cimage-on-windows-and-mac/
 [Qt]: https://www.qt.io
 [PyQt5]: http://pyqt.sourceforge.net/Docs/PyQt5/installation.html
-[BoggleGame.zip]: https://my.pcloud.com/publink/show?code=XZ1gDqZmiHyJdEza9zPjia5Bskzym0pWLM7
+[BoggleGame.zip]: https://my.pcloud.com/publink/show?code=XZrwwNZTobXYEUyt6Sh5lwOA0MRLjDNV0kV
