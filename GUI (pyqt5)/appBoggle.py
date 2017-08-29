@@ -315,6 +315,7 @@ class GameBoggle(QMainWindow, MainWindow):
         if self.gameNew.text() == "New Custom Boggle Board":
             self.custom_board()
             return
+        self.playerInput.setText("")
         self.game_board = self.boggle_create()
         self.game_load()
 
@@ -384,22 +385,36 @@ class GameBoggle(QMainWindow, MainWindow):
                     for idx in self.trace_history:
                         word = word + FACE_DECODE[self.face_code.get(idx)]
                     score = self.get_score(word, self.boggle_min_length)
-                    if score > 0 and word not in self.word_list:
-                        self.game_scores += score
-                        self.gameScores.setText("Scores: " + str(self.game_scores) + " out of " + str(self.max_scores))
-                        if len(self.word_history) > 0:
-                            self.word_history = "\n" + self.word_history
-                        self.word_history = word + " (" + str(score) + ")" + self.word_history
-                        self.wordListDisplay.setText(self.word_history)
-                        self.word_list.append(word)
-                        if self.max_scores == self.game_scores:
-                            self.game_thread.stop()
-                            self.game_active = False
-                            self.playerInput.setEnabled(False)
-                            self.gameIntro.setText("You found all words.  Early termination.")
-
-                    self.clear_history()
-                    self.playerInput.setText("")
+                    if score > 0:
+                        if word in self.word_list:
+                            self.clear_history()
+                            self.playerInput.setText("")
+                            if len(word) > 20:
+                                self.gameIntro.setText(word[:15] + " ... duplicate entry.")
+                            else:
+                                self.gameIntro.setText(word + " duplicate entry.")
+                        else:
+                            self.game_scores += score
+                            self.gameScores.setText("Scores: " + str(self.game_scores) + " out of " + str(self.max_scores))
+                            if len(self.word_history) > 0:
+                                self.word_history = "\n" + self.word_history
+                            self.word_history = word + " (" + str(score) + ")" + self.word_history
+                            self.wordListDisplay.setText(self.word_history)
+                            self.word_list.append(word)
+                            if self.max_scores == self.game_scores:
+                                self.game_thread.stop()
+                                self.game_active = False
+                                self.playerInput.setEnabled(False)
+                                self.gameIntro.setText("You found all words.  Early termination.")
+                            self.clear_history()
+                            self.playerInput.setText("")
+                    else:
+                        self.clear_history()
+                        self.playerInput.setText("")
+                        if len(word) > 20:
+                            self.gameIntro.setText(word[:15] + " ... is not a word.")
+                        else:
+                            self.gameIntro.setText(word + " is not a word.")
                 else:
                     self.word_trace = True
                     self.trace_history = []
@@ -566,6 +581,7 @@ class GameBoggle(QMainWindow, MainWindow):
                         self.game_images.getPath(400)))
 
     def input_changed(self, text):
+        self.gameIntro.setText("Type the word or click 1st and last letter.")
         if len(text) == 0:
             self.word_trace = False
             if len(self.trace_history) == 0:
@@ -596,6 +612,9 @@ class GameBoggle(QMainWindow, MainWindow):
                         self.playerInput.setText(text.upper())
                     elif self.face_lookup.get("TH") and text.upper() == "T":
                         self.playerInput.setText(text.upper())
+                    else:
+                        self.playerInput.setText("")
+                        self.gameIntro.setText(text.upper() + " not on board.")
             elif len(text) == 2:
                 if self.face_lookup.get(text.upper()):
                     idx = self.face_lookup[text.upper()][0]
@@ -605,6 +624,7 @@ class GameBoggle(QMainWindow, MainWindow):
                 else:
                     self.clear_history()
                     self.playerInput.setText("")
+                    self.gameIntro.setText(text.upper() + " not on board.")
                     self.word_trace = False
             return
 
@@ -679,6 +699,7 @@ class GameBoggle(QMainWindow, MainWindow):
         word = ""
         for idx in self.trace_history:
             word = word + FACE_DECODE[self.face_code.get(idx)]
+        text = word + ch
         self.pending_extend_string = False
         self.clear_history()
         found = self.search_path(word + ch)
@@ -696,6 +717,10 @@ class GameBoggle(QMainWindow, MainWindow):
             self.refresh_linked_images()
         elif not is_backspace:
             self.playerInput.setText("")
+            if len(text) > 20:
+                self.gameIntro.setText("..." + (text[15:]).upper() + " not on board.")
+            else:
+                self.gameIntro.setText(text + " not on board.")
 
     def search_path(self, text):
         self.dfs_new_trace = []
